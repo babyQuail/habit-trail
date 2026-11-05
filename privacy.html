@@ -7,15 +7,103 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <nav>
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="support.html">Support</a></li>
-      <li><a href="privacy.html" aria-current="page">Privacy</a></li>
-    </ul>
-  </nav>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html" aria-current="page">Privacy</a></li>
+      </ul>
+    </nav>
+  </header>
 
-  <h1>Privacy</h1>
+  <main id="main">
+    <h1>Privacy Policy &amp; Security Architecture</h1>
+
+    <p>
+      Last Updated: <time datetime="2026-11-05">November 5, 2026</time><br>
+      Status: Architecture-Verified (Local-First Platform)
+    </p>
+
+    <p>We believe that your daily routines, mental health goals, sobriety tracking, and personal habits are yours alone. Our software is engineered from the ground up on a local-first, zero-knowledge architecture. This means we do not, and physically cannot, read, aggregate, sell, or monetize your habit logs.</p>
+
+    <p>Unlike traditional applications that sync your raw data to a centralized cloud database, this app executes and secures everything directly on your physical hardware.</p>
+
+    <section aria-labelledby="data-minimization">
+      <h2 id="data-minimization">1. Data Minimization Matrix</h2>
+
+      <p>We design our application around the principle of absolute data minimization. If data is not strictly required for the core execution of your habit logs, it never comes into existence.</p>
+
+      <h3>What We Never See vs. What Your Device Secures</h3>
+
+      <table>
+        <caption>What we never see vs. what your device secures</caption>
+        <thead>
+          <tr>
+            <th scope="col">Data Category</th>
+            <th scope="col">What We See (Our Servers)</th>
+            <th scope="col">What Your Device Secures (Local Sandbox)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Identity &amp; Authentication</th>
+            <td>Nothing. We do not offer or require account registration, email sign-ups, or OAuth social logins.</td>
+            <td>Nothing. The app operates entirely accountless.</td>
+          </tr>
+          <tr>
+            <th scope="row">Habit Metadata &amp; Logs</th>
+            <td>Nothing. We have zero access to your habit names, schedules, or completion histories.</td>
+            <td>Full History. Encrypted relational tables tracking your habits, custom categories, completion checks, and streak counts.</td>
+          </tr>
+          <tr>
+            <th scope="row">Behavioral Timestamps</th>
+            <td>Nothing.</td>
+            <td>Date Buckets Only. Exact execution timestamps are truncated to localized date strings (<code>YYYY-MM-DD</code>) to eliminate fine-grained behavioral profiling.</td>
+          </tr>
+          <tr>
+            <th scope="row">Diagnostics &amp; Crash Logs</th>
+            <td>Nothing. We do not ship proprietary analytics packages or background tracking scripts.</td>
+            <td>Volatile Memory. Diagnostic traces are maintained strictly within your temporary system memory bounds to resolve local exceptions.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section aria-labelledby="on-device-storage">
+      <h2 id="on-device-storage">2. On-Device Storage &amp; Cryptographic Layer</h2>
+
+      <p>Your data is protected at rest within an isolated application sandbox. It cannot be read by other applications on your device or intercepted via local storage extractions.</p>
+
+      <ul>
+        <li><strong>Database Encryption:</strong> All transactional data, habits, and historical metrics are managed inside a dedicated SQLite instance compiled with SQLCipher. The database is fully encrypted at rest using AES-256-GCM authenticated encryption.</li>
+        <li><strong>Hardware-Backed Key Derivation:</strong> The unique 256-bit symmetric encryption key used to lock your local database is never stored in plain text.
+          <ul>
+            <li><strong>iOS:</strong> Derived and stored inside the iOS Secure Enclave using <code>kSecAttrAccessibleAfterFirstUnlockThisDeviceOnly</code>. This configuration prevents the key from being bundled into unencrypted cloud snapshots or extracted off-chip.</li>
+            <li><strong>Android:</strong> Managed via the Android Keystore system, utilizing hardware-backed Trusted Execution Environments (TEE) or StrongBox Keymaster modules where physically supported by the device.</li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="sync-backups">
+      <h2 id="sync-backups">3. Zero-Knowledge Synchronization &amp; Backups</h2>
+
+      <p>To ensure you do not lose your streaks when switching devices, the app utilizes an end-to-end encrypted (E2EE) cloud synchronization system.</p>
+    </section>
+  </main>
+
+  <footer>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html" aria-current="page">Privacy</a></li>
+      </ul>
+    </nav>
+    <p>&copy; 2026 HabitTrail</p>
+  </footer>
 
   <script src="js/script.js"></script>
 </body>
