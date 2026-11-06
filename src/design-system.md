@@ -47,8 +47,7 @@ Order on every page: skip link, `<header>` containing the Main nav, `<main id="m
 The Footer nav followed by `<p>&copy; 2026 HabitTrail</p>`.
 
 ### Content section
-- `support.html` and `privacy.html`: `<section aria-labelledby="x">` containing `<h2 id="x">`.
-- `index.html`: `<section>` with an `<h2>` and no `aria-labelledby`.
+Every page: `<section aria-labelledby="x">` containing `<h2 id="x">`.
 
 ### Question and answer
 An `<h3>` question followed by a `<p>` answer, or an `<ol>` for step-by-step answers. Used in `support.html`, grouped under topic `<h2>` sections.
@@ -83,6 +82,7 @@ Followed consistently across the pages:
 
 - Keep the Main and Footer nav labels, link order and `aria-current="page"` handling identical on every page.
 - Give every landmark that appears more than once (`<nav>`) a distinct `aria-label`.
+- Label every `<section>` with `aria-labelledby` pointing at its `<h2>`'s `id`.
 - Keep one `<h1>` per page and do not skip heading levels.
 - Give links whose visible text is ambiguous out of context a descriptive `aria-label`.
 - Write `&` as `&amp;` in HTML text.
