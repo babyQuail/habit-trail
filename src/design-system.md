@@ -4,7 +4,7 @@ This documents what exists in the code today: `index.html`, `support.html`, `pri
 
 ## Tokens and theme
 
-Design tokens are defined as CSS custom properties on `:root` in `css/styles.css`, and every color, spacing and radius value in the stylesheet uses them. There are no typography tokens; the base font is the system font stack at a 1.6 line height.
+Design tokens are defined as CSS custom properties on `:root` in `css/styles.css`, and every color, spacing and radius value in the stylesheet uses them. Body text has a 1.6 line height.
 
 Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trail and soft morning fog.
 
@@ -26,6 +26,15 @@ Contrast rules (ratios computed with the WCAG formula):
 - Cedar on Fog is 4.54:1, so use it for headings and links on Fog only.
 - Cedar on Sunrise is about 2.7:1 and fails. Links inside Sunrise sections use Bark with an underline, and the button gets a 2px Bark border (7.67:1 against Sunrise).
 - White on Cedar is 5.04:1 and Bark on Sunrise is 7.67:1. Never put white text on Sunrise.
+
+### Fonts
+
+| Token | Value | Use |
+|---|---|---|
+| `--font-body` | `"Work Sans", sans-serif` | Body text |
+| `--font-heading` | `"Work Sans", sans-serif` | `<h1>`, `<h2>`, `<h3>` |
+
+Work Sans comes from Google Fonts, in weights 400 and 700 only, so use only regular and bold. The fallback is the browser's default sans-serif. `<code>` keeps the browser's default monospace.
 
 ### Spacing
 
@@ -51,6 +60,7 @@ Only light values are defined. The only other theme-related code is `<meta name=
 ## Page-level rules
 
 - `<html lang="en">`, `<meta charset="UTF-8">`, and the viewport meta tag in every page.
+- In `<head>`, before the stylesheet: the two Google Fonts `preconnect` links and the Work Sans stylesheet link (`https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap`).
 - Stylesheet `css/styles.css` in `<head>`; script `js/script.js` at the end of `<body>`.
 - Title: `Support - HabitTrail` and `Privacy - HabitTrail` on those pages; `HabitTrail` on the home page.
 - `<meta name="description">` is present on `index.html` and `support.html`.
