@@ -1,0 +1,16 @@
+:root {
+  /* Colors */
+  --color-primary: #2F7D4F;   /* Cedar */
+  --color-secondary: #F4B13E; /* Sunrise */
+  --color-bg: #F5F3EC;        /* Fog */
+  --color-text: #1F2D26;      /* Bark */
+
+  /* Spacing: each size doubles the last */
+  --space-s: 0.5rem;  /* 8px */
+  --space-m: 1rem;    /* 16px */
+  --space-l: 2rem;    /* 32px */
+  --space-xl: 4rem;   /* 64px */
+
+  /* Corner radius for buttons and cards */
+  --radius: 12px;
+}

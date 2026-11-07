@@ -4,9 +4,39 @@ This documents what exists in the code today: `index.html`, `support.html`, `pri
 
 ## Tokens and theme
 
-No design tokens are defined. `css/styles.css` is empty, so there are no colors, typography, spacing, or other variables.
+Design tokens are defined as CSS custom properties on `:root` in `css/styles.css`. No rule uses them yet, so the pages look unchanged. There are no typography tokens.
 
-The only theme-related code is `<meta name="color-scheme" content="light dark">` in the `<head>` of `index.html`.
+Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trail and soft morning fog.
+
+### Colors
+
+| Token | Name | Value | Use |
+|---|---|---|---|
+| `--color-primary` | Cedar | `#2F7D4F` | Buttons, links, current-page nav |
+| `--color-secondary` | Sunrise | `#F4B13E` | Highlights, badges, accents |
+| `--color-bg` | Fog | `#F5F3EC` | Page background |
+| `--color-text` | Bark | `#1F2D26` | Body text |
+
+Use white text on Cedar and Bark text on Sunrise, never white on Sunrise. These contrast ratios are estimates and have not been checked in a tool: white on Cedar about 5:1, Bark on Sunrise about 7.7:1, Cedar on Fog about 4.6:1.
+
+### Spacing
+
+Each size doubles the last.
+
+| Token | Value | Use |
+|---|---|---|
+| `--space-s` | 0.5rem (8px) | Tight gaps |
+| `--space-m` | 1rem (16px) | Default gap, button padding |
+| `--space-l` | 2rem (32px) | Card padding, space between blocks |
+| `--space-xl` | 4rem (64px) | Space between page sections |
+
+### Corner radius
+
+`--radius: 12px`, for both buttons and cards.
+
+### Dark mode
+
+Only light values are defined. The only other theme-related code is `<meta name="color-scheme" content="light dark">` in the `<head>` of `index.html`.
 
 ## Page-level rules
 
