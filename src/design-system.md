@@ -4,7 +4,7 @@ This documents what exists in the code today: `index.html`, `support.html`, `pri
 
 ## Tokens and theme
 
-Design tokens are defined as CSS custom properties on `:root` in `css/styles.css`. No rule uses them yet, so the pages look unchanged. There are no typography tokens.
+Design tokens are defined as CSS custom properties on `:root` in `css/styles.css`, and every color, spacing and radius value in the stylesheet uses them. There are no typography tokens; the base font is the system font stack at a 1.6 line height.
 
 Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trail and soft morning fog.
 
@@ -15,9 +15,17 @@ Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trai
 | `--color-primary` | Cedar | `#2F7D4F` | Buttons, links, current-page nav |
 | `--color-secondary` | Sunrise | `#F4B13E` | Highlights, badges, accents |
 | `--color-bg` | Fog | `#F5F3EC` | Page background |
-| `--color-text` | Bark | `#1F2D26` | Body text |
+| `--color-text` | Bark | `#1F2D26` | Body text, borders, focus outlines |
+| `--color-white` | White | `#FFFFFF` | Text on Cedar |
 
-Use white text on Cedar and Bark text on Sunrise, never white on Sunrise. These contrast ratios are estimates and have not been checked in a tool: white on Cedar about 5:1, Bark on Sunrise about 7.7:1, Cedar on Fog about 4.6:1.
+Where each color is used:
+- Cedar: the `<h1>`, the call-to-action button fill, links on the Fog background (navs, "On this page"), the skip link.
+- Sunrise: the background of every `<section>` in `<main>`.
+
+Contrast rules (ratios computed with the WCAG formula):
+- Cedar on Fog is 4.54:1, so use it for headings and links on Fog only.
+- Cedar on Sunrise is about 2.7:1 and fails. Links inside Sunrise sections use Bark with an underline, and the button gets a 2px Bark border (7.67:1 against Sunrise).
+- White on Cedar is 5.04:1 and Bark on Sunrise is 7.67:1. Never put white text on Sunrise.
 
 ### Spacing
 
@@ -25,10 +33,12 @@ Each size doubles the last.
 
 | Token | Value | Use |
 |---|---|---|
-| `--space-s` | 0.5rem (8px) | Tight gaps |
-| `--space-m` | 1rem (16px) | Default gap, button padding |
-| `--space-l` | 2rem (32px) | Card padding, space between blocks |
-| `--space-xl` | 4rem (64px) | Space between page sections |
+| `--space-s` | 0.5rem (8px) | List items, nav row gap, table cell padding, button vertical padding |
+| `--space-m` | 1rem (16px) | Gap between blocks inside a section, page gutter, button horizontal padding |
+| `--space-l` | 2rem (32px) | Section card padding, space before a new question (`<h3>`), header and footer padding |
+| `--space-xl` | 4rem (64px) | Space between sections |
+
+Section cards drop to `--space-m` padding at 40rem wide and below. Page content is centered at 60rem with at least a `--space-m` gutter on each side, set as padding on `header`, `main` and `footer`.
 
 ### Corner radius
 
@@ -48,13 +58,13 @@ Only light values are defined. The only other theme-related code is `<meta name=
 
 ## Components
 
-All components are HTML patterns. None has styling yet.
+All components are HTML patterns, styled in `css/styles.css`.
 
 ### Skip link
 ```html
 <a class="skip-link" href="#main">Skip to main content</a>
 ```
-First element in `<body>` on every page. Targets `<main id="main">`. The only CSS class in the codebase; it has no CSS rule.
+First element in `<body>` on every page. Targets `<main id="main">`. Hidden off-screen until it receives focus, then shown as a Cedar chip with white text.
 
 ### Page shell
 Order on every page: skip link, `<header>` containing the Main nav, `<main id="main">`, `<footer>`, script tag. On the home page the header also contains the `<h1>` site name before the nav.
@@ -72,6 +82,7 @@ Order on every page: skip link, `<header>` containing the Main nav, `<main id="m
 - Labels in use: `Main` (in `<header>`), `Footer` (in `<footer>`), `On this page` (in-page jump links, `support.html` only).
 - Main and Footer navs list Home, Support, Privacy, in that order, on every page.
 - The link for the current page has `aria-current="page"`, in both Main and Footer.
+- Styling: an inline row that wraps, with an 8px row gap and a 16px column gap. Links are Cedar. The current page is bold and underlined, not marked by color alone.
 
 ### Footer
 The Footer nav followed by `<p>&copy; 2026 HabitTrail</p>`.
@@ -79,14 +90,18 @@ The Footer nav followed by `<p>&copy; 2026 HabitTrail</p>`.
 ### Content section
 Every page: `<section aria-labelledby="x">` containing `<h2 id="x">`.
 
+Styled as a card: Sunrise background, Bark text, `--radius` corners, `--space-l` padding, and `--space-xl` between cards. Blocks inside the card are `--space-m` apart. In Support, each new question after the first has `--space-l` above it, so question and answer pairs read as groups.
+
 ### Question and answer
 An `<h3>` question followed by a `<p>` answer, or an `<ol>` for step-by-step answers. Used in `support.html`, grouped under topic `<h2>` sections.
 
 ### Call-to-action link
 ```html
-<p><a href="#" aria-label="Download HabitTrail from the App Store">Download HabitTrail</a></p>
+<p><a class="button" href="#" aria-label="Download HabitTrail from the App Store">Download HabitTrail</a></p>
 ```
 Used twice in `index.html`. Each has a descriptive `aria-label`. `href="#"` is a placeholder.
+
+The `.button` class gives a Cedar fill, white bold text, a 2px Bark border and `--radius` corners. Hover turns the fill Bark. Use it for call-to-action links.
 
 ### Feature list
 A `<ul>` whose items start with a bold label: `<li><strong>Label:</strong> text</li>`. Used in `index.html` and, with a nested `<ul>`, in `privacy.html`.
@@ -100,6 +115,8 @@ A `<ul>` whose items start with a bold label: `<li><strong>Label:</strong> text<
 </table>
 ```
 Used in `privacy.html`. Has a `<caption>`, column headers with `scope="col"`, and row headers with `scope="row"`.
+
+Styled as full width with 1px Bark borders, `--space-s` cell padding, and a Fog header row. At 40rem wide and below it uses equal-width columns and smaller text so it fits inside its card without scrolling sideways.
 
 ### Inline elements
 - `<code>` for literal values, e.g. `YYYY-MM-DD`.
@@ -116,3 +133,5 @@ Followed consistently across the pages:
 - Keep one `<h1>` per page and do not skip heading levels.
 - Give links whose visible text is ambiguous out of context a descriptive `aria-label`.
 - Write `&` as `&amp;` in HTML text.
+- Use tokens for every color, spacing and radius value in CSS. Do not hardcode hex values or spacing outside `:root`.
+- Do not put Cedar text on a Sunrise background. Use Bark.

@@ -4,6 +4,7 @@
   --color-secondary: #F4B13E; /* Sunrise */
   --color-bg: #F5F3EC;        /* Fog */
   --color-text: #1F2D26;      /* Bark */
+  --color-white: #FFFFFF;     /* Text on Cedar */
 
   /* Spacing: each size doubles the last */
   --space-s: 0.5rem;  /* 8px */
@@ -13,4 +14,200 @@
 
   /* Corner radius for buttons and cards */
   --radius: 12px;
+}
+
+/* Base */
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
+}
+
+a {
+  color: var(--color-primary);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+/* Skip link: off-screen until focused */
+.skip-link {
+  position: absolute;
+  z-index: 1;
+  inset-block-start: -10rem;
+  inset-inline-start: var(--space-m);
+  padding: var(--space-s) var(--space-m);
+  background: var(--color-primary);
+  color: var(--color-white);
+  border-radius: var(--radius);
+}
+
+.skip-link:focus {
+  inset-block-start: var(--space-s);
+}
+
+/* Page shell: content centered at 60rem, with at least a --space-m gutter */
+header,
+main,
+footer {
+  padding-inline: max(var(--space-m), calc((100% - 60rem) / 2));
+}
+
+header {
+  padding-block: var(--space-l) var(--space-m);
+}
+
+main {
+  padding-block: var(--space-m) var(--space-xl);
+}
+
+footer {
+  padding-block: var(--space-l);
+}
+
+footer p {
+  margin: var(--space-m) 0 0;
+}
+
+/* Headings and page-level text */
+h1 {
+  margin: 0 0 var(--space-m);
+  color: var(--color-primary);
+  font-size: 2.25rem;
+  line-height: 1.2;
+}
+
+main > p {
+  margin: 0 0 var(--space-m);
+}
+
+/* Navigation */
+nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s) var(--space-m);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav a[aria-current="page"] {
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+main > nav {
+  margin-block: var(--space-m);
+}
+
+/* Section cards */
+main > section {
+  margin-block-start: var(--space-xl);
+  padding: var(--space-l);
+  background: var(--color-secondary);
+  border-radius: var(--radius);
+}
+
+main > section > * {
+  margin-block: 0;
+}
+
+main > section > * + * {
+  margin-block-start: var(--space-m);
+}
+
+main > section > h3:not(:first-of-type) {
+  margin-block-start: var(--space-l);
+}
+
+section h2,
+section h3 {
+  line-height: 1.3;
+}
+
+section ul,
+section ol {
+  padding-inline-start: var(--space-l);
+}
+
+section li + li {
+  margin-block-start: var(--space-s);
+}
+
+section li > ul {
+  margin-block: var(--space-s) 0;
+}
+
+/* Cedar links fail contrast on Sunrise, so links inside cards use Bark */
+section a {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+@media (max-width: 40rem) {
+  main > section {
+    padding: var(--space-m);
+  }
+}
+
+/* Call-to-action button */
+.button {
+  display: inline-block;
+  padding: var(--space-s) var(--space-m);
+  background: var(--color-primary);
+  color: var(--color-white);
+  border: 2px solid var(--color-text);
+  border-radius: var(--radius);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.button:hover {
+  background: var(--color-text);
+}
+
+/* Data table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+caption {
+  padding-block-end: var(--space-s);
+  font-weight: 700;
+  text-align: left;
+}
+
+th,
+td {
+  padding: var(--space-s);
+  border: 1px solid var(--color-text);
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  background: var(--color-bg);
+}
+
+code {
+  overflow-wrap: anywhere;
+}
+
+/* Narrow screens: equal-width columns and smaller text so the table fits its card */
+@media (max-width: 40rem) {
+  table {
+    table-layout: fixed;
+    font-size: 0.875rem;
+  }
+
+  th,
+  td {
+    overflow-wrap: anywhere;
+    hyphens: auto;
+  }
 }

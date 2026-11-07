@@ -19,7 +19,7 @@ None. There is no `package.json`, build step, linter or test suite. The pages ar
 ## Architecture
 
 - `index.html`, `support.html`, `privacy.html`: the pages, at the repo root.
-- `css/styles.css`: the single stylesheet, linked from every page. Currently holds only the design tokens (CSS variables on `:root`); no rules use them yet.
+- `css/styles.css`: the single stylesheet, linked from every page. Holds the design tokens (CSS variables on `:root`) and the styles for all three pages.
 - `js/script.js`: the single script, loaded at the end of `<body>` on every page. Currently empty.
 - `docs/BRIEF.md`: personas, site map, required content and success criteria.
 - `docs/sitemap.md`: diagram of how the pages link to each other.
