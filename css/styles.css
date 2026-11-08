@@ -164,9 +164,46 @@ section li > ul {
   margin-block: var(--space-s) 0;
 }
 
+/* Hero: centered vertical stack (h1, h2, description, button).
+   Spacing grows in steps: h1 to h2 is tightest, h2 to description is wider,
+   and the largest gaps sit above the h1 and between the description and the button,
+   so the text reads as one group and the button as another. */
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-block-start: var(--space-m);
+  padding-block: var(--space-xl);
+  text-align: center;
+}
+
+.hero > h1 + h2 {
+  margin-block-start: var(--space-s);
+}
+
+.hero > h2 + p {
+  margin-block-start: var(--space-m);
+}
+
+.hero > p + p {
+  margin-block-start: var(--space-xl);
+}
+
+.hero > p {
+  max-width: 40rem;
+}
+
 @media (max-width: 40rem) {
   main > section {
     padding: var(--space-m);
+  }
+
+  .hero {
+    padding-block: var(--space-l);
+  }
+
+  .hero > p + p {
+    margin-block-start: var(--space-l);
   }
 }
 

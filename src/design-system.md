@@ -20,7 +20,7 @@ Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trai
 | `--color-white` | White | `#FFFFFF` | Text on Cedar |
 
 Where each color is used:
-- Cedar: the `<h1>`, the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link.
+- Cedar: the `<h1>` (on Fog on Support and Privacy, on Sunrise in the home page hero), the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link.
 - Sunrise: the background of every `<section>` in `<main>`.
 - Sky: the background of `<header>` and `<footer>`, as full-width bands. Links on Sky are Bark, not Cedar, because Cedar read as hard to see there.
 
@@ -31,8 +31,8 @@ Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and b
 | Bark on Fog (body text) | 12.94 |
 | Bark on Sunrise (card text) | 8.58 |
 | Bark on Sky (header and footer links, footer text) | 9.40 |
-| Cedar on Fog (`<h1>`, jump links) | 7.11 |
-| Cedar on Sunrise (links in cards, button edge) | 4.71 |
+| Cedar on Fog (`<h1>` on Support and Privacy, jump links) | 7.11 |
+| Cedar on Sunrise (links in cards, button edge, home page `<h1>`) | 4.71 |
 | Cedar on Sky (skip link chip against the header band) | 5.17 |
 | White on Cedar (button, skip link) | 7.89 |
 | White on Bark (button hover) | 14.37 |
@@ -93,7 +93,7 @@ All components are HTML patterns, styled in `css/styles.css`.
 First element in `<body>` on every page. Targets `<main id="main">`. Hidden off-screen until it receives focus, then shown as a Cedar chip with white text.
 
 ### Page shell
-Order on every page: skip link, `<header>` containing the Main nav, `<main id="main">`, `<footer>`, script tag. The `<h1>` is the first element in `<main>` on every page, including the home page, so the header holds only the Main nav.
+Order on every page: skip link, `<header>` containing the Main nav, `<main id="main">`, `<footer>`, script tag. The `<h1>` is the first element in `<main>` on Support and Privacy. On the home page it is the first element of the hero section, which is the first element in `<main>`. The header holds only the Main nav.
 
 `<header>` and `<footer>` are Sky bands that run the full width of the page, with `--space-l` padding above and below. Their content lines up with `<main>`, centered at 60rem.
 
@@ -119,6 +119,17 @@ The Footer nav followed by `<p>&copy; 2026 HabitTrail</p>`.
 Every page: `<section aria-labelledby="x">` containing `<h2 id="x">`.
 
 Styled as a card: Sunrise background, Bark text, `--radius` corners, `--space-l` padding, and `--space-xl` between cards. Blocks inside the card are `--space-m` apart. In Support, each new question after the first has `--space-l` above it, so question and answer pairs read as groups.
+
+### Hero
+```html
+<section class="hero" aria-labelledby="build-habits">
+  <h1>HabitTrail</h1>
+  <h2 id="build-habits">Build habits that stick</h2>
+  <p>…</p>
+  <p><a class="button" href="#" aria-label="…">Download HabitTrail</a></p>
+</section>
+```
+The first section on `index.html` only. It is a Content section (Sunrise card) laid out as a centered Flexbox column: `<h1>`, `<h2>`, description, then the call-to-action link. Spacing is a progressive scale that groups the content: `<h1>` to `<h2>` is `--space-s`, `<h2>` to description is `--space-m`, and description to button is `--space-xl` (`--space-l` at 40rem wide and below). The largest gaps are above the `<h1>` (`--space-xl` block padding, `--space-l` at 40rem and below) and between the description and the button, so the text is one group and the button another. The same block padding sits below the button, and there is `--space-m` above the card, since it is the first thing in `<main>`. The description is capped at 40rem wide so centered lines stay readable.
 
 ### Question and answer
 An `<h3>` question followed by a `<p>` answer, or an `<ol>` for step-by-step answers. Used in `support.html`, grouped under topic `<h2>` sections.
