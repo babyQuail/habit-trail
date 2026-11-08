@@ -13,15 +13,15 @@ Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trai
 | Token | Name | Value | Use |
 |---|---|---|---|
 | `--color-primary` | Cedar | `#225C3A` | `<h1>`, buttons, links on Fog and Sunrise |
-| `--color-secondary` | Sunrise | `#F6BF60` | Section card backgrounds |
+| `--color-secondary` | Sunrise | `#F6BF60` | Content section cards (except the hero and features sections) and the feature cards |
 | `--color-tertiary` | Sky | `#A8D8F0` | Header and footer bands |
 | `--color-bg` | Fog | `#F5F3EC` | Page background |
 | `--color-text` | Bark | `#1F2D26` | Body text, borders, focus outlines, links on Sky |
 | `--color-white` | White | `#FFFFFF` | Text on Cedar |
 
 Where each color is used:
-- Cedar: the `<h1>` (on Fog on Support and Privacy, on Sunrise in the home page hero), the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link.
-- Sunrise: the background of every `<section>` in `<main>`.
+- Cedar: the `<h1>` (on Fog on every page), the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link.
+- Sunrise: the background of every `<section>` in `<main>` except the hero and features sections, which sit on Fog. The four feature cards on the home page are Sunrise too.
 - Sky: the background of `<header>` and `<footer>`, as full-width bands. Links on Sky are Bark, not Cedar, because Cedar read as hard to see there.
 
 Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and button edges need 3:1):
@@ -31,8 +31,8 @@ Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and b
 | Bark on Fog (body text) | 12.94 |
 | Bark on Sunrise (card text) | 8.58 |
 | Bark on Sky (header and footer links, footer text) | 9.40 |
-| Cedar on Fog (`<h1>` on Support and Privacy, jump links) | 7.11 |
-| Cedar on Sunrise (links in cards, button edge, home page `<h1>`) | 4.71 |
+| Cedar on Fog (`<h1>` on every page, jump links) | 7.11 |
+| Cedar on Sunrise (links in cards, button edge) | 4.71 |
 | Cedar on Sky (skip link chip against the header band) | 5.17 |
 | White on Cedar (button, skip link) | 7.89 |
 | White on Bark (button hover) | 14.37 |
@@ -63,7 +63,7 @@ Each size doubles the last.
 | `--space-l` | 2rem (32px) | Section card padding, space before a new question (`<h3>`), header and footer padding |
 | `--space-xl` | 4rem (64px) | Space between sections |
 
-Section cards drop to `--space-m` padding at 40rem wide and below. Page content is centered at 60rem with at least a `--space-m` gutter on each side, set as padding on `header`, `main` and `footer`.
+Section cards drop to `--space-m` padding at 40rem wide and below. The hero and features sections have no card, so no padding of their own beside the hero's block padding. Page content is centered at 60rem with at least a `--space-m` gutter on each side, set as padding on `header`, `main` and `footer`.
 
 ### Corner radius
 
@@ -118,7 +118,7 @@ The Footer nav followed by `<p>&copy; 2026 HabitTrail</p>`.
 ### Content section
 Every page: `<section aria-labelledby="x">` containing `<h2 id="x">`.
 
-Styled as a card: Sunrise background, Bark text, `--radius` corners, `--space-l` padding, and `--space-xl` between cards. Blocks inside the card are `--space-m` apart. In Support, each new question after the first has `--space-l` above it, so question and answer pairs read as groups.
+Styled as a card: Sunrise background, Bark text, `--radius` corners, `--space-l` padding, and `--space-xl` between cards. Blocks inside the card are `--space-m` apart. In Support, each new question after the first has `--space-l` above it, so question and answer pairs read as groups. The exceptions are the home page hero and features sections, which have no card (see Hero and Features grid).
 
 ### Hero
 ```html
@@ -129,7 +129,7 @@ Styled as a card: Sunrise background, Bark text, `--radius` corners, `--space-l`
   <p><a class="button" href="#" aria-label="…">Download HabitTrail</a></p>
 </section>
 ```
-The first section on `index.html` only. It is a Content section (Sunrise card) laid out as a centered Flexbox column: `<h1>`, `<h2>`, description, then the call-to-action link. Spacing is a progressive scale that groups the content: `<h1>` to `<h2>` is `--space-s`, `<h2>` to description is `--space-m`, and description to button is `--space-xl` (`--space-l` at 40rem wide and below). The largest gaps are above the `<h1>` (`--space-xl` block padding, `--space-l` at 40rem and below) and between the description and the button, so the text is one group and the button another. The same block padding sits below the button, and there is `--space-m` above the card, since it is the first thing in `<main>`. The description is capped at 40rem wide so centered lines stay readable.
+The first section on `index.html` only. It has no card: it sits directly on the Fog page background, with no fill or corner radius and no inline padding, so its content lines up with the page gutter. It is laid out as a centered Flexbox column: `<h1>`, `<h2>`, description, then the call-to-action link. Spacing is a progressive scale that groups the content: `<h1>` to `<h2>` is `--space-s`, `<h2>` to description is `--space-m`, and description to button is `--space-xl` (`--space-l` at 40rem wide and below). The largest gaps are above the `<h1>` (`--space-xl` padding, `--space-l` at 40rem and below) and between the description and the button, so the text is one group and the button another. There is no padding below the button, since there is no card edge to clear; the next section's `--space-xl` top margin provides the space. There is `--space-m` above the hero, since it is the first thing in `<main>`. The description is capped at 40rem wide so centered lines stay readable.
 
 ### Question and answer
 An `<h3>` question followed by a `<p>` answer, or an `<ol>` for step-by-step answers. Used in `support.html`, grouped under topic `<h2>` sections.
@@ -152,7 +152,7 @@ The `.button` class gives a Cedar fill, white bold text and `--radius` corners, 
   …
 </ul>
 ```
-The "Features" section on `index.html`. A `<ul class="features">` laid out as a CSS Grid of four equal columns with a `--space-l` gap, each `<li>` holding one feature's `<h3>` and a short description (`--space-s` between them). No bullets. It drops to two columns at 48rem wide and below, and one column at 40rem and below.
+The "Features" section on `index.html` (`<section class="features-section">`, which like the hero has no card and sits on Fog). A `<ul class="features">` laid out as a CSS Grid of four equal columns with a `--space-m` gap. Each `<li>` is a compact Sunrise card (Bark text, `--radius` corners, `--space-m` padding) holding one feature's `<h3>` and a short description (`--space-s` between them). No bullets. It drops to two columns at 48rem wide and below, and one column at 40rem and below.
 
 ### Feature list
 A `<ul>` whose items start with a bold label: `<li><strong>Label:</strong> text</li>`. Used, with a nested `<ul>`, in `privacy.html`.

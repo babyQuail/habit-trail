@@ -164,16 +164,31 @@ section li > ul {
   margin-block: var(--space-s) 0;
 }
 
+/* Plain sections: the hero and the features section sit directly on the Fog page
+   background, with no card. The gold lives on the feature cards instead. */
+.hero,
+.features-section {
+  background: none;
+  border-radius: 0;
+  padding-inline: 0;
+}
+
+.features-section {
+  padding-block: 0;
+}
+
 /* Hero: centered vertical stack (h1, h2, description, button).
    Spacing grows in steps: h1 to h2 is tightest, h2 to description is wider,
    and the largest gaps sit above the h1 and between the description and the button,
-   so the text reads as one group and the button as another. */
+   so the text reads as one group and the button as another.
+   There is no card edge, so padding sits above the h1 only; the next section's
+   margin provides the space below the button. */
 .hero {
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-block-start: var(--space-m);
-  padding-block: var(--space-xl);
+  padding-block: var(--space-xl) 0;
   text-align: center;
 }
 
@@ -199,7 +214,7 @@ section li > ul {
   }
 
   .hero {
-    padding-block: var(--space-l);
+    padding-block: var(--space-l) 0;
   }
 
   .hero > p + p {
@@ -207,14 +222,20 @@ section li > ul {
   }
 }
 
-/* Features: a Grid of four equal columns, each holding one feature's h3 and description.
-   Drops to two columns on tablets and one on phones. */
+/* Features: a Grid of four equal columns, each a compact Sunrise card holding
+   one feature's h3 and description. Drops to two columns on tablets and one on phones. */
 .features {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-l);
+  gap: var(--space-m);
   padding: 0;
   list-style: none;
+}
+
+.features li {
+  padding: var(--space-m);
+  background: var(--color-secondary);
+  border-radius: var(--radius);
 }
 
 .features li + li {
