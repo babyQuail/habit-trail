@@ -12,20 +12,36 @@ Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trai
 
 | Token | Name | Value | Use |
 |---|---|---|---|
-| `--color-primary` | Cedar | `#2F7D4F` | Buttons, links, current-page nav |
-| `--color-secondary` | Sunrise | `#F4B13E` | Highlights, badges, accents |
+| `--color-primary` | Cedar | `#225C3A` | `<h1>`, buttons, links on Fog and Sunrise |
+| `--color-secondary` | Sunrise | `#F6BF60` | Section card backgrounds |
+| `--color-tertiary` | Sky | `#A8D8F0` | Header and footer bands |
 | `--color-bg` | Fog | `#F5F3EC` | Page background |
-| `--color-text` | Bark | `#1F2D26` | Body text, borders, focus outlines |
+| `--color-text` | Bark | `#1F2D26` | Body text, borders, focus outlines, links on Sky |
 | `--color-white` | White | `#FFFFFF` | Text on Cedar |
 
 Where each color is used:
-- Cedar: the `<h1>`, the call-to-action button fill, links on the Fog background (navs, "On this page"), the skip link.
+- Cedar: the `<h1>`, the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link.
 - Sunrise: the background of every `<section>` in `<main>`.
+- Sky: the background of `<header>` and `<footer>`, as full-width bands. Links on Sky are Bark, not Cedar, because Cedar read as hard to see there.
 
-Contrast rules (ratios computed with the WCAG formula):
-- Cedar on Fog is 4.54:1, so use it for headings and links on Fog only.
-- Cedar on Sunrise is about 2.7:1 and fails. Links inside Sunrise sections use Bark with an underline, and the button gets a 2px Bark border (7.67:1 against Sunrise).
-- White on Cedar is 5.04:1 and Bark on Sunrise is 7.67:1. Never put white text on Sunrise.
+Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and button edges need 3:1):
+
+| Pair | Ratio |
+|---|---|
+| Bark on Fog (body text) | 12.94 |
+| Bark on Sunrise (card text) | 8.58 |
+| Bark on Sky (header and footer links, footer text) | 9.40 |
+| Cedar on Fog (`<h1>`, jump links) | 7.11 |
+| Cedar on Sunrise (links in cards, button edge) | 4.71 |
+| Cedar on Sky (Home `<h1>` only) | 5.17 |
+| White on Cedar (button, skip link) | 7.89 |
+| White on Bark (button hover) | 14.37 |
+
+Rules that follow from this:
+- Cedar and Bark are only 1.82:1 apart, so color alone cannot tell a link from body text. Keep links underlined (the browser default).
+- Never put white text on Sunrise or Sky; it fails (about 1.5 to 1.9:1). Use Bark.
+- The Sunrise cards and Sky bands sit close to Fog in brightness (1.51:1 and 1.38:1) and are told apart by hue, so do not rely on them alone to mark an edge that carries meaning. Use a Bark border, as the table does.
+- Cedar links on Sunrise at 4.71:1 pass with a thin margin. Do not make Sunrise any darker or Cedar any lighter without recomputing.
 
 ### Fonts
 
@@ -79,6 +95,8 @@ First element in `<body>` on every page. Targets `<main id="main">`. Hidden off-
 ### Page shell
 Order on every page: skip link, `<header>` containing the Main nav, `<main id="main">`, `<footer>`, script tag. On the home page the header also contains the `<h1>` site name before the nav.
 
+`<header>` and `<footer>` are Sky bands that run the full width of the page, with `--space-l` padding above and below. Their content lines up with `<main>`, centered at 60rem.
+
 ### Navigation
 ```html
 <nav aria-label="Main">
@@ -92,7 +110,7 @@ Order on every page: skip link, `<header>` containing the Main nav, `<main id="m
 - Labels in use: `Main` (in `<header>`), `Footer` (in `<footer>`), `On this page` (in-page jump links, `support.html` only).
 - Main and Footer navs list Home, Support, Privacy, in that order, on every page.
 - The link for the current page has `aria-current="page"`, in both Main and Footer.
-- Styling: an inline row that wraps, with an 8px row gap and a 16px column gap. Links are Cedar. The current page is bold and underlined, not marked by color alone.
+- Styling: an inline row that wraps, with an 8px row gap and a 16px column gap. Links are underlined: Bark in the header and footer (on Sky), Cedar for "On this page" (on Fog). The current page is bold, not marked by color alone.
 
 ### Footer
 The Footer nav followed by `<p>&copy; 2026 HabitTrail</p>`.
@@ -111,7 +129,7 @@ An `<h3>` question followed by a `<p>` answer, or an `<ol>` for step-by-step ans
 ```
 Used twice in `index.html`. Each has a descriptive `aria-label`. `href="#"` is a placeholder.
 
-The `.button` class gives a Cedar fill, white bold text, a 2px Bark border and `--radius` corners. Hover turns the fill Bark. Use it for call-to-action links.
+The `.button` class gives a Cedar fill, white bold text and `--radius` corners, with no border. It stands out from the Sunrise card at 4.71:1. Hover turns the fill Bark. Use it for call-to-action links.
 
 ### Feature list
 A `<ul>` whose items start with a bold label: `<li><strong>Label:</strong> text</li>`. Used in `index.html` and, with a nested `<ul>`, in `privacy.html`.
@@ -144,4 +162,4 @@ Followed consistently across the pages:
 - Give links whose visible text is ambiguous out of context a descriptive `aria-label`.
 - Write `&` as `&amp;` in HTML text.
 - Use tokens for every color, spacing and radius value in CSS. Do not hardcode hex values or spacing outside `:root`.
-- Do not put Cedar text on a Sunrise background. Use Bark.
+- Check the contrast table before pairing colors in a new way. Text needs 4.5:1 and borders and button edges need 3:1.
