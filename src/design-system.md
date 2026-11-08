@@ -14,7 +14,7 @@ Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trai
 |---|---|---|---|
 | `--color-primary` | Cedar | `#225C3A` | `<h1>`, buttons, links on Fog and Sunrise |
 | `--color-secondary` | Sunrise | `#F6BF60` | Content section cards (except the hero and features sections) and the feature cards |
-| `--color-tertiary` | Sky | `#A8D8F0` | Header and footer bands |
+| `--color-tertiary` | Sky | `#A8D8F0` | Header band |
 | `--color-bg` | Fog | `#F5F3EC` | Page background |
 | `--color-text` | Bark | `#1F2D26` | Body text, borders, focus outlines, links on Sky |
 | `--color-white` | White | `#FFFFFF` | Text on Cedar |
@@ -22,7 +22,7 @@ Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trai
 Where each color is used:
 - Cedar: the `<h1>` (on Fog on every page), the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link.
 - Sunrise: the background of every `<section>` in `<main>` except the hero and features sections, which sit on Fog. The four feature cards on the home page are Sunrise too.
-- Sky: the background of `<header>` and `<footer>`, as full-width bands. Links on Sky are Bark, not Cedar, because Cedar read as hard to see there.
+- Sky: the background of `<header>`, as a full-width band. The footer has no band and sits on Fog. Links on Sky are Bark, not Cedar, because Cedar read as hard to see there.
 
 Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and button edges need 3:1):
 
@@ -30,8 +30,8 @@ Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and b
 |---|---|
 | Bark on Fog (body text) | 12.94 |
 | Bark on Sunrise (card text) | 8.58 |
-| Bark on Sky (header and footer links, footer text) | 9.40 |
-| Cedar on Fog (`<h1>` on every page, jump links) | 7.11 |
+| Bark on Sky (header links) | 9.40 |
+| Cedar on Fog (`<h1>` on every page, jump links, footer links) | 7.11 |
 | Cedar on Sunrise (links in cards, button edge) | 4.71 |
 | Cedar on Sky (skip link chip against the header band) | 5.17 |
 | White on Cedar (button, skip link) | 7.89 |
@@ -60,7 +60,7 @@ Each size doubles the last.
 |---|---|---|
 | `--space-s` | 0.5rem (8px) | List items, nav row gap, table cell padding, button vertical padding |
 | `--space-m` | 1rem (16px) | Gap between blocks inside a section, page gutter, button horizontal padding |
-| `--space-l` | 2rem (32px) | Section card padding, space before a new question (`<h3>`), header and footer padding |
+| `--space-l` | 2rem (32px) | Section card padding, space before a new question (`<h3>`), header padding, footer bottom padding |
 | `--space-xl` | 4rem (64px) | Space between sections |
 
 Section cards drop to `--space-m` padding at 40rem wide and below. The hero and features sections have no card, so no padding of their own beside the hero's block padding. Page content is centered at 60rem with at least a `--space-m` gutter on each side, set as padding on `header`, `main` and `footer`.
@@ -95,7 +95,9 @@ First element in `<body>` on every page. Targets `<main id="main">`. Hidden off-
 ### Page shell
 Order on every page: skip link, `<header>` containing the Main nav, `<main id="main">`, `<footer>`, script tag. The `<h1>` is the first element in `<main>` on Support and Privacy. On the home page it is the first element of the hero section, which is the first element in `<main>`. The header holds only the Main nav.
 
-`<header>` and `<footer>` are Sky bands that run the full width of the page, with `--space-l` padding above and below. Their content lines up with `<main>`, centered at 60rem.
+`<body>` is a full-height Flexbox column (`min-height: 100vh`, with `100dvh` after it) and `<main>` has `flex: 1`, so on a page shorter than the window the footer sits at the bottom of the window instead of floating under the content. On a longer page the footer follows the content as usual.
+
+`<header>` is a Sky band that runs the full width of the page, with `--space-l` padding above and below. `<footer>` has no background: it sits on Fog with `--space-l` padding below only, since `<main>`'s bottom padding already separates it from the content. Both line up with `<main>`, centered at 60rem.
 
 ### Navigation
 ```html
@@ -110,7 +112,7 @@ Order on every page: skip link, `<header>` containing the Main nav, `<main id="m
 - Labels in use: `Main` (in `<header>`), `Footer` (in `<footer>`), `On this page` (in-page jump links, `support.html` only).
 - Main and Footer navs list Home, Support, Privacy, in that order, on every page.
 - The link for the current page has `aria-current="page"`, in both Main and Footer.
-- Styling: an inline row that wraps, with an 8px row gap and a 16px column gap. Links are underlined: Bark in the header and footer (on Sky), Cedar for "On this page" (on Fog). The current page is bold, not marked by color alone.
+- Styling: an inline row that wraps, with an 8px row gap and a 16px column gap. Links are underlined: Bark in the header (on Sky), Cedar in the footer and for "On this page" (on Fog). The current page is bold, not marked by color alone.
 
 ### Footer
 The Footer nav followed by `<p>&copy; 2026 HabitTrail</p>`.
