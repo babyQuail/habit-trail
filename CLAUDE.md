@@ -34,6 +34,10 @@ Every page shares the same Main nav (header) and Footer nav, each linking to Hom
 - Placeholder content (support answers, contact method, App Store links with `href="#"`, parts of the privacy copy) is waiting on a collaborator. Do not invent real content to replace it.
 - There is no git remote yet. Commit to local history only.
 
+## Browser checks
+
+The user checks all changes in their own browser. Do not launch headless Chrome (or any headless or automated browser) to verify changes, and do not run any command or flag that reduces, or could reduce, browser security (for example `--disable-web-security`, `--allow-file-access-from-files` or `--no-sandbox`). After a change, say what to look at in the browser (page, viewport width, behaviour to confirm) and leave the check to the user.
+
 ## Design system
 
 Before any task that touches UI, styling, or components (HTML structure in `index.html`, `support.html` or `privacy.html`, `css/styles.css`, `js/script.js`), read `src/design-system.md` first and follow it before changing code.
