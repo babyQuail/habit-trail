@@ -32,7 +32,7 @@ Every page shares the same Main nav (header) and Footer nav, each linking to Hom
 - Use semantic HTML and keep the accessibility patterns already on every page: skip link, labelled landmarks, `aria-current="page"` on the current page's nav links, one `<h1>` per page.
 - Write `&` as `&amp;` in HTML text.
 - Placeholder content (support answers, contact method, App Store links with `href="#"`, parts of the privacy copy) is waiting on a collaborator. Do not invent real content to replace it.
-- There is no git remote yet. Commit to local history only.
+- The repo is public on GitHub (`origin`: `babyQuail/habit-trail`, branch `main`). Commit when asked, and push only when asked. Never commit secrets, credentials or personal information.
 
 ## Browser checks
 
