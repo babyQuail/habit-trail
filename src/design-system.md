@@ -142,8 +142,20 @@ Used twice in `index.html`. Each has a descriptive `aria-label`. `href="#"` is a
 
 The `.button` class gives a Cedar fill, white bold text and `--radius` corners, with no border. It stands out from the Sunrise card at 4.71:1. Hover turns the fill Bark. Use it for call-to-action links.
 
+### Features grid
+```html
+<ul class="features">
+  <li>
+    <h3>Daily check-ins</h3>
+    <p>Mark a habit done in one tap.</p>
+  </li>
+  …
+</ul>
+```
+The "Features" section on `index.html`. A `<ul class="features">` laid out as a CSS Grid of four equal columns with a `--space-l` gap, each `<li>` holding one feature's `<h3>` and a short description (`--space-s` between them). No bullets. It drops to two columns at 48rem wide and below, and one column at 40rem and below.
+
 ### Feature list
-A `<ul>` whose items start with a bold label: `<li><strong>Label:</strong> text</li>`. Used in `index.html` and, with a nested `<ul>`, in `privacy.html`.
+A `<ul>` whose items start with a bold label: `<li><strong>Label:</strong> text</li>`. Used, with a nested `<ul>`, in `privacy.html`.
 
 ### Data table
 ```html

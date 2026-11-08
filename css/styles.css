@@ -207,6 +207,41 @@ section li > ul {
   }
 }
 
+/* Features: a Grid of four equal columns, each holding one feature's h3 and description.
+   Drops to two columns on tablets and one on phones. */
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-l);
+  padding: 0;
+  list-style: none;
+}
+
+.features li + li {
+  margin-block-start: 0;
+}
+
+.features h3,
+.features p {
+  margin: 0;
+}
+
+.features h3 + p {
+  margin-block-start: var(--space-s);
+}
+
+@media (max-width: 48rem) {
+  .features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 40rem) {
+  .features {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Call-to-action button */
 .button {
   display: inline-block;
