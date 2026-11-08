@@ -33,7 +33,7 @@ Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and b
 | Bark on Sky (header and footer links, footer text) | 9.40 |
 | Cedar on Fog (`<h1>`, jump links) | 7.11 |
 | Cedar on Sunrise (links in cards, button edge) | 4.71 |
-| Cedar on Sky (Home `<h1>` only) | 5.17 |
+| Cedar on Sky (skip link chip against the header band) | 5.17 |
 | White on Cedar (button, skip link) | 7.89 |
 | White on Bark (button hover) | 14.37 |
 
@@ -93,7 +93,7 @@ All components are HTML patterns, styled in `css/styles.css`.
 First element in `<body>` on every page. Targets `<main id="main">`. Hidden off-screen until it receives focus, then shown as a Cedar chip with white text.
 
 ### Page shell
-Order on every page: skip link, `<header>` containing the Main nav, `<main id="main">`, `<footer>`, script tag. On the home page the header also contains the `<h1>` site name before the nav.
+Order on every page: skip link, `<header>` containing the Main nav, `<main id="main">`, `<footer>`, script tag. The `<h1>` is the first element in `<main>` on every page, including the home page, so the header holds only the Main nav.
 
 `<header>` and `<footer>` are Sky bands that run the full width of the page, with `--space-l` padding above and below. Their content lines up with `<main>`, centered at 60rem.
 
