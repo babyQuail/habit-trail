@@ -69,6 +69,10 @@ Section cards drop to `--space-m` padding at 40rem wide and below. The hero and 
 
 `--radius: 12px`, for both buttons and cards.
 
+### Tap target
+
+`--tap-target: 2.75rem` (44px), the minimum height for anything tappable. Nav links and `.button` use it as `min-height`, so they are easy to hit with a thumb. Any new link-like control should do the same.
+
 ### Dark mode
 
 Only light values are defined. The only other theme-related code is `<meta name="color-scheme" content="light dark">` in the `<head>` of `index.html`.
@@ -112,7 +116,7 @@ Order on every page: skip link, `<header>` containing the Main nav, `<main id="m
 - Labels in use: `Main` (in `<header>`), `Footer` (in `<footer>`), `On this page` (in-page jump links, `support.html` only).
 - Main and Footer navs list Home, Support, Privacy, in that order, on every page.
 - The link for the current page has `aria-current="page"`, in both Main and Footer.
-- Styling: an inline row that wraps, with an 8px row gap and a 16px column gap. Links are underlined: Bark in the header (on Sky), Cedar in the footer and for "On this page" (on Fog). The current page is bold, not marked by color alone.
+- Styling: an inline row that wraps, with an 8px row gap and a 16px column gap. Each link is at least `--tap-target` (44px) tall. Links are underlined: Bark in the header (on Sky), Cedar in the footer and for "On this page" (on Fog). The current page is bold, not marked by color alone.
 
 ### Footer
 The Footer nav followed by `<p>&copy; 2026 HabitTrail</p>`.
@@ -142,7 +146,7 @@ An `<h3>` question followed by a `<p>` answer, or an `<ol>` for step-by-step ans
 ```
 Used twice in `index.html`. Each has a descriptive `aria-label`. `href="#"` is a placeholder.
 
-The `.button` class gives a Cedar fill, white bold text and `--radius` corners, with no border. It stands out from the Sunrise card at 4.71:1. Hover turns the fill Bark. Use it for call-to-action links.
+The `.button` class gives a Cedar fill, white bold text and `--radius` corners, with no border. It is at least `--tap-target` (44px) tall, with the text centered vertically. It stands out from the Sunrise card at 4.71:1. Hover turns the fill Bark. Use it for call-to-action links.
 
 ### Features grid
 ```html

@@ -19,6 +19,9 @@
 
   /* Corner radius for buttons and cards */
   --radius: 12px;
+
+  /* Minimum touch size for links and buttons */
+  --tap-target: 2.75rem; /* 44px */
 }
 
 /* Base */
@@ -106,6 +109,12 @@ nav ul {
   margin: 0;
   padding: 0;
   list-style: none;
+}
+
+nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
 }
 
 nav a[aria-current="page"] {
@@ -267,7 +276,9 @@ section li > ul {
 
 /* Call-to-action button */
 .button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-target);
   padding: var(--space-s) var(--space-m);
   background: var(--color-primary);
   color: var(--color-white);
