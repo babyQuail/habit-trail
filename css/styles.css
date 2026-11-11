@@ -1,6 +1,15 @@
 :root {
+  /* Cedar scale, ordered by lightness. Button fills use these; Bark is for text only. */
+  --cedar-900: #143523;       /* Pressed */
+  --cedar-700: #225C3A;       /* Cedar at rest */
+  --cedar-600: #2B7048;       /* Hover */
+  --cedar-500: #5A7D69;       /* Disabled (desaturated) */
+
   /* Colors */
-  --color-primary: #225C3A;   /* Cedar */
+  --color-primary: var(--cedar-700);              /* Cedar */
+  --color-primary-hover: var(--cedar-600);
+  --color-primary-pressed: var(--cedar-900);
+  --color-primary-disabled: var(--cedar-500);
   --color-secondary: #F6BF60; /* Sunrise */
   --color-tertiary: #A8D8F0;  /* Sky */
   --color-bg: #F5F3EC;        /* Fog */
@@ -287,17 +296,27 @@ section li > ul {
   text-decoration: none;
 }
 
-/* Hover only on devices that can hover, so a tap on a phone doesn't leave the button dark */
+/* Focus: the global :focus-visible outline (3px Bark, 2px offset) already covers buttons */
+
+/* Hover only on devices that can hover, so a tap on a phone doesn't leave the button stuck.
+   A lighter Cedar, because pressed goes darker. */
 @media (hover: hover) {
-  .button:hover {
-    background: var(--color-text);
+  .button:hover:not(:disabled):not([aria-disabled="true"]) {
+    background: var(--color-primary-hover);
   }
 }
 
-/* Pressed: Bark fill and a slight shrink, so a tap on a phone gets feedback too */
-.button:active {
-  background: var(--color-text);
+/* Pressed: the darkest Cedar and a slight shrink, so a tap on a phone gets feedback too */
+.button:active:not(:disabled):not([aria-disabled="true"]) {
+  background: var(--color-primary-pressed);
   transform: scale(0.98);
+}
+
+/* Disabled: a muted gray-green. The label stays white and readable (4.59:1). */
+.button:disabled,
+.button[aria-disabled="true"] {
+  background: var(--color-primary-disabled);
+  cursor: not-allowed;
 }
 
 /* Data table */

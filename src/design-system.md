@@ -12,12 +12,23 @@ Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trai
 
 | Token | Name | Value | Use |
 |---|---|---|---|
-| `--color-primary` | Cedar | `#225C3A` | `<h1>`, buttons, links on Fog and Sunrise |
+| `--color-primary` | Cedar | `#225C3A` | `<h1>`, buttons, links on Fog and Sunrise. An alias of `--cedar-700` |
 | `--color-secondary` | Sunrise | `#F6BF60` | Content section cards (except the hero and features sections) and the feature cards |
 | `--color-tertiary` | Sky | `#A8D8F0` | Header band |
 | `--color-bg` | Fog | `#F5F3EC` | Page background |
-| `--color-text` | Bark | `#1F2D26` | Body text, borders, focus outlines, links on Sky |
-| `--color-white` | White | `#FFFFFF` | Text on Cedar |
+| `--color-text` | Bark | `#1F2D26` | Body text, borders, focus outlines, links on Sky. Never a button fill |
+| `--color-white` | White | `#FFFFFF` | Text on Cedar and its shades |
+
+#### Cedar scale
+
+Shades of Cedar, ordered by lightness. The state tokens are aliases, so a button rule says what the color is for and the scale says what it is.
+
+| Scale token | Value | State token | Use |
+|---|---|---|---|
+| `--cedar-900` | `#143523` | `--color-primary-pressed` | Button fill while pressed |
+| `--cedar-700` | `#225C3A` | `--color-primary` | Cedar at rest |
+| `--cedar-600` | `#2B7048` | `--color-primary-hover` | Button fill on hover |
+| `--cedar-500` | `#5A7D69` | `--color-primary-disabled` | Disabled button fill. Desaturated (about 16% against Cedar's 46%), so it reads as inactive, not just lighter |
 
 Where each color is used:
 - Cedar: the `<h1>` (on Fog on every page), the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link.
@@ -35,10 +46,19 @@ Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and b
 | Cedar on Sunrise (links in cards, button edge) | 4.71 |
 | Cedar on Sky (skip link chip against the header band) | 5.17 |
 | White on Cedar (button, skip link) | 7.89 |
-| White on Bark (button hover) | 14.37 |
+| White on `--cedar-600` (button hover) | 5.98 |
+| White on `--cedar-900` (button pressed) | 13.43 |
+| White on `--cedar-500` (button disabled) | 4.59 |
+| `--cedar-600` on Fog (hover button edge) | 5.38 |
+| `--cedar-600` on Sunrise (hover button edge) | 3.57 |
+| `--cedar-500` on Fog (disabled button edge) | 4.14 |
+| `--cedar-500` on Sunrise (disabled button edge) | 2.74 |
+
+The disabled button on Sunrise is below 3:1 on purpose: WCAG exempts inactive controls, and the muted look is the signal. Its white label still passes 4.5:1.
 
 Rules that follow from this:
 - Cedar and Bark are only 1.82:1 apart, so color alone cannot tell a link from body text. Keep links underlined (the browser default).
+- Bark is for text, borders and focus outlines. Button fills, in every state, are shades of Cedar.
 - Never put white text on Sunrise or Sky; it fails (about 1.5 to 1.9:1). Use Bark.
 - The Sunrise cards and Sky bands sit close to Fog in brightness (1.51:1 and 1.38:1) and are told apart by hue, so do not rely on them alone to mark an edge that carries meaning. Use a Bark border, as the table does.
 - Cedar links on Sunrise at 4.71:1 pass with a thin margin. Do not make Sunrise any darker or Cedar any lighter without recomputing.
@@ -71,7 +91,7 @@ Section cards drop to `--space-m` padding at 40rem wide and below. The hero and 
 
 ### Tap target
 
-`--tap-target: 2.75rem` (44px), the minimum height for anything tappable. Nav links and `.button` use it as `min-height`, so they are easy to hit with a thumb. Any new link-like control should do the same.
+`--tap-target: 2.75rem` (44px), the minimum height for anything tappable. Nav links and `.button` use it as `min-height`, so they are easy to hit with a thumb. Any new link-like control should do the same, and should define the same states as `.button` (enabled, hover, focus, pressed, disabled).
 
 ### Dark mode
 
@@ -146,7 +166,21 @@ An `<h3>` question followed by a `<p>` answer, or an `<ol>` for step-by-step ans
 ```
 Used twice in `index.html`. Each has a descriptive `aria-label`. `href="#"` is a placeholder.
 
-The `.button` class gives a Cedar fill, white bold text and `--radius` corners, with no border. It is at least `--tap-target` (44px) tall, with the text centered vertically. It stands out from the Sunrise card at 4.71:1, and the fill alone (no shadow) is what marks it as the primary call to action. Hover turns the fill Bark, but only on devices that can hover (`@media (hover: hover)`), so a tap on a phone doesn't leave it dark. Pressing it (`:active`) turns the fill Bark and shrinks it slightly (`scale(0.98)`), which also gives feedback on touch. Use it for call-to-action links.
+The `.button` class gives a Cedar fill, white bold text and `--radius` corners, with no border. It is at least `--tap-target` (44px) tall, with the text centered vertically. It stands out from the Sunrise card at 4.71:1, and the fill alone (no shadow) is what marks it as the primary call to action. Use it for call-to-action links.
+
+States. Fills come from the Cedar scale (see Colors); the label is always white.
+
+| State | Fill | Also |
+|---|---|---|
+| Enabled | `--color-primary` (Cedar) | Bold white label |
+| Hover | `--color-primary-hover`, a lighter Cedar | Only on devices that can hover (`@media (hover: hover)`), so a tap on a phone doesn't leave it stuck |
+| Focus | Unchanged | The global `:focus-visible` outline (3px Bark, 2px offset), a shape change that doesn't rely on color. There is no separate `.button` focus rule |
+| Pressed (`:active`) | `--color-primary-pressed`, the darkest Cedar | Shrinks slightly (`scale(0.98)`), which also gives feedback on touch |
+| Disabled | `--color-primary-disabled`, a muted gray-green | `cursor: not-allowed`, and no hover or pressed change. Label contrast drops from 7.89:1 to 4.59:1 but stays readable |
+
+Hover goes lighter and pressed goes darker, on opposite sides of the resting color, because Cedar is already dark and two darker steps would look alike. There are no shadows.
+
+Disabled applies to `.button:disabled` and `.button[aria-disabled="true"]`. A link can't be natively disabled, so on an `<a class="button">` set `aria-disabled="true"`. No page uses a disabled button yet. When one does, also make the link inert (remove its `href`, or add `tabindex="-1"`), since the styling alone does not stop a click.
 
 ### Features grid
 ```html
