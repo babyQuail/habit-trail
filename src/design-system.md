@@ -27,7 +27,7 @@ Shades of Cedar, ordered by lightness. The state tokens are aliases, so a button
 |---|---|---|---|
 | `--cedar-900` | `#143523` | `--color-primary-pressed` | Button fill while pressed |
 | `--cedar-700` | `#225C3A` | `--color-primary` | Cedar at rest |
-| `--cedar-600` | `#2B7048` | `--color-primary-hover` | Button fill on hover |
+| `--cedar-600` | `#2F7A4F` | `--color-primary-hover` | Button fill on hover |
 | `--cedar-500` | `#5A7D69` | `--color-primary-disabled` | Disabled button fill. Desaturated (about 16% against Cedar's 46%), so it reads as inactive, not just lighter |
 
 Where each color is used:
@@ -46,11 +46,11 @@ Contrast (ratios computed with the WCAG formula; text needs 4.5:1, borders and b
 | Cedar on Sunrise (links in cards, button edge) | 4.71 |
 | Cedar on Sky (skip link chip against the header band) | 5.17 |
 | White on Cedar (button, skip link) | 7.89 |
-| White on `--cedar-600` (button hover) | 5.98 |
+| White on `--cedar-600` (button hover) | 5.23 |
 | White on `--cedar-900` (button pressed) | 13.43 |
 | White on `--cedar-500` (button disabled) | 4.59 |
-| `--cedar-600` on Fog (hover button edge) | 5.38 |
-| `--cedar-600` on Sunrise (hover button edge) | 3.57 |
+| `--cedar-600` on Fog (hover button edge) | 4.71 |
+| `--cedar-600` on Sunrise (hover button edge) | 3.12 |
 | `--cedar-500` on Fog (disabled button edge) | 4.14 |
 | `--cedar-500` on Sunrise (disabled button edge) | 2.74 |
 
@@ -178,7 +178,7 @@ States. Fills come from the Cedar scale (see Colors); the label is always white.
 | Pressed (`:active`) | `--color-primary-pressed`, the darkest Cedar | Shrinks slightly (`scale(0.98)`), which also gives feedback on touch |
 | Disabled | `--color-primary-disabled`, a muted gray-green | `cursor: not-allowed`, and no hover or pressed change. Label contrast drops from 7.89:1 to 4.59:1 but stays readable |
 
-Hover goes lighter and pressed goes darker, on opposite sides of the resting color, because Cedar is already dark and two darker steps would look alike. There are no shadows.
+Hover goes lighter and pressed goes darker, on opposite sides of the resting color, because Cedar is already dark and two darker steps would look alike. There are no shadows. `--cedar-600` is about as light as hover can go: lighter and the hover button edge drops below 3:1 against Sunrise, so recompute before nudging it further.
 
 Disabled applies to `.button:disabled` and `.button[aria-disabled="true"]`. A link can't be natively disabled, so on an `<a class="button">` set `aria-disabled="true"`. No page uses a disabled button yet. When one does, also make the link inert (remove its `href`, or add `tabindex="-1"`), since the styling alone does not stop a click.
 
