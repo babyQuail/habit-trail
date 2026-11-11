@@ -67,10 +67,11 @@ Rules that follow from this:
 
 | Token | Value | Use |
 |---|---|---|
-| `--font-body` | `"Work Sans", sans-serif` | Body text |
-| `--font-heading` | `"Work Sans", sans-serif` | `<h1>`, `<h2>`, `<h3>` |
+| `--font-body` | `"Lexend", sans-serif` | Body text |
+| `--font-heading` | `"Lexend", sans-serif` | `<h1>`, `<h2>`, `<h3>` |
+| `--font-weight-heading` | `600` | Weight of `<h1>`, `<h2>`, `<h3>` |
 
-Work Sans comes from Google Fonts, in weights 400 and 700 only, so use only regular and bold. The fallback is the browser's default sans-serif. `<code>` keeps the browser's default monospace.
+Lexend is a geometric, open typeface that comes from Google Fonts in weights 400, 600 and 700 only, so use only those. Regular (400) is body text. Semibold (600) is for headings: bold looks cramped at small heading sizes. Bold (700) is for emphasis inside text and controls: `<strong>`, the button label, table captions and the current page's nav link. Numerals were a deciding factor: 1 doesn't look like l or 7, 4 is closed, and 9 has an angled tail so it can't be mistaken for 8, which matters for streak counts and percentages. The fallback is the browser's default sans-serif. `<code>` keeps the browser's default monospace.
 
 ### Spacing
 
@@ -100,7 +101,7 @@ Only light values are defined. The only other theme-related code is `<meta name=
 ## Page-level rules
 
 - `<html lang="en">`, `<meta charset="UTF-8">`, and the viewport meta tag in every page.
-- In `<head>`, before the stylesheet: the two Google Fonts `preconnect` links and the Work Sans stylesheet link (`https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;700&display=swap`).
+- In `<head>`, before the stylesheet: the two Google Fonts `preconnect` links and the Lexend stylesheet link (`https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap`).
 - Stylesheet `css/styles.css` in `<head>`; script `js/script.js` at the end of `<body>`.
 - Title: `Support - HabitTrail` and `Privacy - HabitTrail` on those pages; `HabitTrail` on the home page.
 - `<meta name="description">` is present on `index.html` and `support.html`.
