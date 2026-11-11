@@ -45,12 +45,15 @@ A website for a habit-tracking app: check in daily, stay on track with reminders
 
 ## 🗺️ Site map
 
-Every page shares the same navigation (Home, Support, Privacy), so a visitor can reach any page from any other page, even if they land directly on Support or Privacy from a search result.
+Every page shares the same navigation (Home, Progress, Support, Privacy), so a visitor can reach any page from any other page, even if they land directly on Support or Privacy from a search result.
 
 ```mermaid
 flowchart TD
+    Home <--> Progress
     Home <--> Support
     Home <--> Privacy
+    Progress <--> Support
+    Progress <--> Privacy
     Support <--> Privacy
 ```
 
@@ -82,6 +85,7 @@ flowchart LR
 | Page | Purpose | Success criterion |
 |------|---------|-------------------|
 | [**Home**](index.html) | Introduces HabitTrail, lists its main features, and links to download the app | A first-time visitor can explain, in one sentence, what HabitTrail does |
+| [**See your progress**](progress.html) | Shows, with example data, what streaks and progress look like in the app, and links to download it | A visitor can describe what streaks and progress look like in the app without downloading it first |
 | [**Support**](support.html) | Answers the questions a new user is most likely to have, such as how to set a reminder | A visitor with a common question can find the answer without leaving the page |
 | [**Privacy**](privacy.html) | Explains what data HabitTrail collects and why | A visitor can find what data is collected and how to request deletion without searching |
 
@@ -104,6 +108,7 @@ Accessibility patterns on every page: a skip link, labelled landmarks, `aria-cur
 ```text
 habit-trail/
 ├── index.html          Home
+├── progress.html       See your progress (example streak and progress visuals)
 ├── support.html        Support
 ├── privacy.html        Privacy
 ├── css/styles.css      Design tokens and styles for all pages

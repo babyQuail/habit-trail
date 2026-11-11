@@ -4,9 +4,10 @@ This file provides guidance to Claude Code when working in this repository.
 
 ## Project overview
 
-HabitTrail is a static website for a habit-tracking app. It has three pages:
+HabitTrail is a static website for a habit-tracking app. It has four pages:
 
 - `index.html`: Home. Introduces the app, lists its main features, links to download it.
+- `progress.html`: See your progress (nav label: Progress). Shows example streak and progress visuals, all labelled as example data, and links to download the app.
 - `support.html`: Support. Answers common questions (getting started, reminders, streaks and progress, data).
 - `privacy.html`: Privacy. Explains what data is collected and how it is protected.
 
@@ -18,14 +19,14 @@ None. There is no `package.json`, build step, linter or test suite. The pages ar
 
 ## Architecture
 
-- `index.html`, `support.html`, `privacy.html`: the pages, at the repo root.
-- `css/styles.css`: the single stylesheet, linked from every page. Holds the design tokens (CSS variables on `:root`) and the styles for all three pages.
+- `index.html`, `progress.html`, `support.html`, `privacy.html`: the pages, at the repo root.
+- `css/styles.css`: the single stylesheet, linked from every page. Holds the design tokens (CSS variables on `:root`) and the styles for all four pages.
 - `js/script.js`: the single script, loaded at the end of `<body>` on every page. Currently empty.
 - `docs/BRIEF.md`: personas, site map, required content and success criteria.
 - `docs/sitemap.md`: diagram of how the pages link to each other.
 - `src/design-system.md`: the design system reference (see below).
 
-Every page shares the same Main nav (header) and Footer nav, each linking to Home, Support and Privacy.
+Every page shares the same Main nav (header) and Footer nav, each linking to Home, Progress, Support and Privacy, in that order.
 
 ## Conventions
 
@@ -40,4 +41,4 @@ The user checks all changes in their own browser. Do not launch headless Chrome 
 
 ## Design system
 
-Before any task that touches UI, styling, or components (HTML structure in `index.html`, `support.html` or `privacy.html`, `css/styles.css`, `js/script.js`), read `src/design-system.md` first and follow it before changing code.
+Before any task that touches UI, styling, or components (HTML structure in `index.html`, `progress.html`, `support.html` or `privacy.html`, `css/styles.css`, `js/script.js`), read `src/design-system.md` first and follow it before changing code.
