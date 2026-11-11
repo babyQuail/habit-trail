@@ -1,6 +1,6 @@
 # HabitTrail design system
 
-This documents what exists in the code today: `index.html`, `support.html`, `privacy.html`, `css/styles.css` and `js/script.js`.
+This documents what exists in the code today: `index.html`, `progress.html`, `support.html`, `privacy.html`, `css/styles.css` and `js/script.js`.
 
 ## Tokens and theme
 
@@ -31,7 +31,7 @@ Shades of Cedar, ordered by lightness. The state tokens are aliases, so a button
 | `--cedar-500` | `#5A7D69` | `--color-primary-disabled` | Disabled button fill. Desaturated (about 16% against Cedar's 46%), so it reads as inactive, not just lighter |
 
 Where each color is used:
-- Cedar: the `<h1>` (on Fog on every page), the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link.
+- Cedar: the `<h1>` (on Fog on every page), the call-to-action button fill, links on Fog and Sunrise ("On this page", links inside cards), the skip link. On the Progress page it is also the fill that means progress: done days in the streak calendar, the filled part of a progress bar, and the bars in the weekly chart.
 - Sunrise: the background of every `<section>` in `<main>` except the hero and features sections, which sit on Fog. The four feature cards on the home page are Sunrise too.
 - Sky: the background of `<header>`, as a full-width band. The footer has no band and sits on Fog. Links on Sky are Bark, not Cedar, because Cedar read as hard to see there.
 
@@ -94,6 +94,15 @@ Section cards drop to `--space-m` padding at 40rem wide and below. The hero and 
 
 `--tap-target: 2.75rem` (44px), the minimum height for anything tappable. Nav links and `.button` use it as `min-height`, so they are easy to hit with a thumb. Any new link-like control should do the same, and should define the same states as `.button` (enabled, hover, focus, pressed, disabled).
 
+### Component sizes
+
+Sizes that belong to one component, not to the spacing scale. Defined on `:root` so they are easy to find and change.
+
+| Token | Value | Use |
+|---|---|---|
+| `--chart-height` | `10rem` | Height of the tallest bar in the weekly bar chart |
+| `--calendar-max-width` | `28rem` | Widest the streak calendar grows. It is centered, so on a wide card it does not stretch into big gaps |
+
 ### Dark mode
 
 Only light values are defined. The only other theme-related code is `<meta name="color-scheme" content="light dark">` in the `<head>` of `index.html`.
@@ -103,9 +112,9 @@ Only light values are defined. The only other theme-related code is `<meta name=
 - `<html lang="en">`, `<meta charset="UTF-8">`, and the viewport meta tag in every page.
 - In `<head>`, before the stylesheet: the two Google Fonts `preconnect` links and the Lexend stylesheet link (`https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap`).
 - Stylesheet `css/styles.css` in `<head>`; script `js/script.js` at the end of `<body>`.
-- Title: `Support - HabitTrail` and `Privacy - HabitTrail` on those pages; `HabitTrail` on the home page.
-- `<meta name="description">` is present on `index.html` and `support.html`.
-- One `<h1>` per page, then `<h2>` for sections and `<h3>` beneath, with no skipped levels. The home page `<h1>` is the site name; Support and Privacy use the page title.
+- Title: `See your progress - HabitTrail`, `Support - HabitTrail` and `Privacy - HabitTrail` on those pages; `HabitTrail` on the home page.
+- `<meta name="description">` is present on `index.html`, `progress.html` and `support.html`.
+- One `<h1>` per page, then `<h2>` for sections and `<h3>` beneath, with no skipped levels. The home page `<h1>` is the site name; Progress, Support and Privacy use the page title. The Progress page's `<h1>` and title say "See your progress", while its nav label is the shorter "Progress".
 
 ## Components
 
@@ -129,13 +138,14 @@ Order on every page: skip link, `<header>` containing the Main nav, `<main id="m
 <nav aria-label="Main">
   <ul>
     <li><a href="index.html">Home</a></li>
+    <li><a href="progress.html">Progress</a></li>
     <li><a href="support.html" aria-current="page">Support</a></li>
     <li><a href="privacy.html">Privacy</a></li>
   </ul>
 </nav>
 ```
 - Labels in use: `Main` (in `<header>`), `Footer` (in `<footer>`), `On this page` (in-page jump links, `support.html` only).
-- Main and Footer navs list Home, Support, Privacy, in that order, on every page.
+- Main and Footer navs list Home, Progress, Support, Privacy, in that order, on every page.
 - The link for the current page has `aria-current="page"`, in both Main and Footer.
 - Styling: an inline row that wraps, with an 8px row gap and a 16px column gap. Each link is at least `--tap-target` (44px) tall. Links are underlined: Bark in the header (on Sky), Cedar in the footer and for "On this page" (on Fog). The current page is bold, not marked by color alone.
 
@@ -194,6 +204,86 @@ Disabled applies to `.button:disabled` and `.button[aria-disabled="true"]`. A li
 </ul>
 ```
 The "Features" section on `index.html` (`<section class="features-section">`, which like the hero has no card and sits on Fog). A `<ul class="features">` laid out as a CSS Grid of four equal columns with a `--space-m` gap. Each `<li>` is a compact Sunrise card (Bark text, `--radius` corners, `--space-m` padding) holding one feature's `<h3>` and a short description (`--space-s` between them). No bullets. It drops to two columns at 48rem wide and below, and one column at 40rem and below.
+
+### Stat tiles
+```html
+<section class="stats-section" aria-labelledby="streaks">
+  <h2 id="streaks">Your streaks</h2>
+  <dl class="stats">
+    <div>
+      <dt>Current streak</dt>
+      <dd>12 days</dd>
+    </div>
+    …
+  </dl>
+</section>
+```
+Used on `progress.html`. Like the hero and features sections, `.stats-section` has no card and sits on Fog. A `<dl class="stats">` laid out as a CSS Grid of three equal columns with a `--space-m` gap, one column at 40rem wide and below. Each `<div>` is a compact Sunrise card (`--radius` corners, `--space-m` padding) with the label (`<dt>`, regular text) above the value (`<dd>`, `--font-heading` at 2.25rem and `--font-weight-heading`), `--space-s` apart. Label first in the source, so a screen reader says "Current streak, 12 days". Bark on Sunrise is 8.58:1.
+
+### Streak calendar
+```html
+<figure class="calendar">
+  <figcaption>Morning walk, oldest week first</figcaption>
+  <ul class="calendar-weekdays" aria-hidden="true">
+    <li>Mon</li> …
+  </ul>
+  <ol class="calendar-days">
+    <li class="day done"><span class="visually-hidden">Mon: done</span></li>
+    <li class="day"><span class="visually-hidden">Tue: missed</span></li>
+    …
+    <li class="day done today"><span class="visually-hidden">Sun: done, today</span></li>
+  </ol>
+</figure>
+```
+Used on `progress.html`, inside a Sunrise content card. A grid of equal squares, seven to a row, one row per week, oldest first. The weekday labels and the days are two lists that share the same seven-column grid (`repeat(7, minmax(0, 1fr))`, `--space-s` gap), so they line up. The figure is centered and no wider than `--calendar-max-width`. Each `.day` is a square (`aspect-ratio: 1`, `--radius` corners, 1px Bark border):
+
+| State | Look | Also |
+|---|---|---|
+| Done (`.day.done`) | Cedar fill | Hidden text "Mon: done" |
+| Missed (`.day`) | Fog fill, empty | Hidden text "Tue: missed" |
+| Today (`.day.today`) | Adds a 3px Bark outline, 2px offset. Combine with Done or Missed | Hidden text ", today" |
+
+Why a grid and not a table: a table sizes each column to its content, so the squares came out different widths on a wide screen. Equal grid columns keep every square the same size at any width, and showing more than four weeks later just adds rows.
+
+The weekday labels are `aria-hidden`, because a plain list has no column headers. A screen reader gets the weekday from each day's hidden text instead. A sentence above the grid says what the shading means and gives the total ("22 of 28 days done").
+
+Done and missed differ in lightness, not only hue (Cedar against Fog is 7.11:1), and today has an outline, so the states hold up in grayscale. Contrast against the Sunrise card: the Cedar fill is 4.71:1 and the Bark border is 8.58:1 (both need 3:1). A Fog missed box has its Bark border to stand out, since Fog and Sunrise are only 1.51:1. Days are not interactive, so the tap target rule does not apply.
+
+**Planned:** icons or another visual indicator for done and missed days. The shading is deliberately plain until then. The expectation is SF Symbols on iOS and Material on Android.
+
+### Progress bar
+```html
+<ul class="habit-list">
+  <li>
+    <div class="habit-heading">
+      <label for="habit-walk">Morning walk</label>
+      <span>7 of 7 days</span>
+    </div>
+    <progress id="habit-walk" max="7" value="7">7 of 7 days</progress>
+  </li>
+  …
+</ul>
+```
+Used on `progress.html`, inside a Sunrise content card. A native `<progress>` with a visible `<label>` (bold) and the value written out as text on the same line, so the number never depends on the bar. The bar is full width, `--space-m` tall, with `--radius` corners, a 1px Bark border and a Fog track; the fill is Cedar. The styles reset the browser's default look (`appearance: none`) and set the fill separately for Safari/Chrome (`::-webkit-progress-value`) and Firefox (`::-moz-progress-bar`). Items are `--space-m` apart. Cedar fill on the Fog track is 7.11:1, and the Bark border on Sunrise is 8.58:1.
+
+### Weekly bar chart
+```html
+<ol class="chart" style="--max: 3">
+  <li style="--value: 3">
+    <span class="chart-label">Mon</span>
+    <span class="chart-bar"></span>
+    <span class="chart-value">3<span class="visually-hidden"> of 3 check-ins</span></span>
+  </li>
+  …
+</ol>
+```
+Used on `progress.html`, inside a Sunrise content card. Seven equal columns (`--space-s` gap) bottom-aligned, so every bar sits on the same baseline. Each bar is Cedar with `--radius` rounding on its top corners, at most `--space-xl` wide, and `--chart-height` times `--value` divided by `--max` tall. `--max` is set on the list and `--value` on each item, inline, because they are the data. In the source each item reads label, bar, value, so a screen reader says "Mon, 3 of 3 check-ins"; `flex-direction: column-reverse` draws the label at the bottom, the bar above it and the number on top of the bar. The number is always shown, so a bar's height is never the only way to read it. Cedar bars against the Sunrise card are 4.71:1 (need 3:1).
+
+### Visually hidden text
+```html
+<span class="visually-hidden">Done</span>
+```
+`.visually-hidden` removes text from the screen but leaves it for screen readers. Use it only where a symbol or position already says the same thing to sighted users (a filled or empty calendar box, "of 3 check-ins"). Do not use it to hide content sighted users need.
 
 ### Feature list
 A `<ul>` whose items start with a bold label: `<li><strong>Label:</strong> text</li>`. Used, with a nested `<ul>`, in `privacy.html`.

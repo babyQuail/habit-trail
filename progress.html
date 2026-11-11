@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>See your progress - HabitTrail</title>
+  <meta name="description" content="See what streaks and progress look like in HabitTrail, with example streak counts, a calendar of recent days, progress per habit and check-ins by day.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header>
+    <nav aria-label="Main">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="progress.html" aria-current="page">Progress</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h1>See your progress</h1>
+    <p>HabitTrail turns your daily check-ins into streaks and progress you can see at a glance. Everything on this page is an example, not real data.</p>
+
+    <section class="stats-section" aria-labelledby="streaks">
+      <h2 id="streaks">Your streaks</h2>
+      <dl class="stats">
+        <div>
+          <dt>Current streak</dt>
+          <dd>12 days</dd>
+        </div>
+        <div>
+          <dt>Best streak</dt>
+          <dd>21 days</dd>
+        </div>
+        <div>
+          <dt>Check-ins this week</dt>
+          <dd>86%</dd>
+        </div>
+      </dl>
+    </section>
+
+    <section aria-labelledby="last-four-weeks">
+      <h2 id="last-four-weeks">Last 4 weeks</h2>
+      <p>Morning walk: 22 of 28 days done. A filled box means done, an empty box means missed, and the outlined box is today.</p>
+      <figure class="calendar">
+        <figcaption>Morning walk, oldest week first</figcaption>
+        <ul class="calendar-weekdays" aria-hidden="true">
+          <li>Mon</li>
+          <li>Tue</li>
+          <li>Wed</li>
+          <li>Thu</li>
+          <li>Fri</li>
+          <li>Sat</li>
+          <li>Sun</li>
+        </ul>
+        <!-- Plain shading for now. Icons or another indicator are planned later:
+             SF Symbols on iOS, Material on Android. -->
+        <ol class="calendar-days">
+          <li class="day done"><span class="visually-hidden">Mon: done</span></li>
+          <li class="day"><span class="visually-hidden">Tue: missed</span></li>
+          <li class="day done"><span class="visually-hidden">Wed: done</span></li>
+          <li class="day done"><span class="visually-hidden">Thu: done</span></li>
+          <li class="day"><span class="visually-hidden">Fri: missed</span></li>
+          <li class="day done"><span class="visually-hidden">Sat: done</span></li>
+          <li class="day done"><span class="visually-hidden">Sun: done</span></li>
+          <li class="day"><span class="visually-hidden">Mon: missed</span></li>
+          <li class="day done"><span class="visually-hidden">Tue: done</span></li>
+          <li class="day done"><span class="visually-hidden">Wed: done</span></li>
+          <li class="day done"><span class="visually-hidden">Thu: done</span></li>
+          <li class="day"><span class="visually-hidden">Fri: missed</span></li>
+          <li class="day done"><span class="visually-hidden">Sat: done</span></li>
+          <li class="day"><span class="visually-hidden">Sun: missed</span></li>
+          <li class="day done"><span class="visually-hidden">Mon: done</span></li>
+          <li class="day"><span class="visually-hidden">Tue: missed</span></li>
+          <li class="day done"><span class="visually-hidden">Wed: done</span></li>
+          <li class="day done"><span class="visually-hidden">Thu: done</span></li>
+          <li class="day done"><span class="visually-hidden">Fri: done</span></li>
+          <li class="day done"><span class="visually-hidden">Sat: done</span></li>
+          <li class="day done"><span class="visually-hidden">Sun: done</span></li>
+          <li class="day done"><span class="visually-hidden">Mon: done</span></li>
+          <li class="day done"><span class="visually-hidden">Tue: done</span></li>
+          <li class="day done"><span class="visually-hidden">Wed: done</span></li>
+          <li class="day done"><span class="visually-hidden">Thu: done</span></li>
+          <li class="day done"><span class="visually-hidden">Fri: done</span></li>
+          <li class="day done"><span class="visually-hidden">Sat: done</span></li>
+          <li class="day done today"><span class="visually-hidden">Sun: done, today</span></li>
+        </ol>
+      </figure>
+    </section>
+
+    <section aria-labelledby="habits-this-week">
+      <h2 id="habits-this-week">Habits this week</h2>
+      <ul class="habit-list">
+        <li>
+          <div class="habit-heading">
+            <label for="habit-walk">Morning walk</label>
+            <span>7 of 7 days</span>
+          </div>
+          <progress id="habit-walk" max="7" value="7">7 of 7 days</progress>
+        </li>
+        <li>
+          <div class="habit-heading">
+            <label for="habit-read">Read 20 minutes</label>
+            <span>5 of 7 days</span>
+          </div>
+          <progress id="habit-read" max="7" value="5">5 of 7 days</progress>
+        </li>
+        <li>
+          <div class="habit-heading">
+            <label for="habit-water">Drink water</label>
+            <span>6 of 7 days</span>
+          </div>
+          <progress id="habit-water" max="7" value="6">6 of 7 days</progress>
+        </li>
+      </ul>
+    </section>
+
+    <section aria-labelledby="check-ins-by-day">
+      <h2 id="check-ins-by-day">Check-ins by day</h2>
+      <p>Habits checked in each day this week, out of 3.</p>
+      <ol class="chart" style="--max: 3">
+        <li style="--value: 3">
+          <span class="chart-label">Mon</span>
+          <span class="chart-bar"></span>
+          <span class="chart-value">3<span class="visually-hidden"> of 3 check-ins</span></span>
+        </li>
+        <li style="--value: 3">
+          <span class="chart-label">Tue</span>
+          <span class="chart-bar"></span>
+          <span class="chart-value">3<span class="visually-hidden"> of 3 check-ins</span></span>
+        </li>
+        <li style="--value: 2">
+          <span class="chart-label">Wed</span>
+          <span class="chart-bar"></span>
+          <span class="chart-value">2<span class="visually-hidden"> of 3 check-ins</span></span>
+        </li>
+        <li style="--value: 3">
+          <span class="chart-label">Thu</span>
+          <span class="chart-bar"></span>
+          <span class="chart-value">3<span class="visually-hidden"> of 3 check-ins</span></span>
+        </li>
+        <li style="--value: 2">
+          <span class="chart-label">Fri</span>
+          <span class="chart-bar"></span>
+          <span class="chart-value">2<span class="visually-hidden"> of 3 check-ins</span></span>
+        </li>
+        <li style="--value: 2">
+          <span class="chart-label">Sat</span>
+          <span class="chart-bar"></span>
+          <span class="chart-value">2<span class="visually-hidden"> of 3 check-ins</span></span>
+        </li>
+        <li style="--value: 3">
+          <span class="chart-label">Sun</span>
+          <span class="chart-bar"></span>
+          <span class="chart-value">3<span class="visually-hidden"> of 3 check-ins</span></span>
+        </li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="start-your-trail">
+      <h2 id="start-your-trail">Start your own trail</h2>
+      <p>Download HabitTrail and see your own streaks grow.</p>
+      <p><a class="button" href="#" aria-label="Download HabitTrail from the App Store and start your own trail">Download HabitTrail</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <nav aria-label="Footer">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="progress.html" aria-current="page">Progress</a></li>
+        <li><a href="support.html">Support</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+      </ul>
+    </nav>
+    <p>&copy; 2026 HabitTrail</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>

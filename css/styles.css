@@ -32,6 +32,10 @@
 
   /* Minimum touch size for links and buttons */
   --tap-target: 2.75rem; /* 44px */
+
+  /* Component sizes for the Progress page */
+  --chart-height: 10rem;          /* Height of the tallest bar in the weekly chart */
+  --calendar-max-width: 28rem;    /* Widest the streak calendar grows */
 }
 
 /* Base */
@@ -186,16 +190,18 @@ section li > ul {
   margin-block: var(--space-s) 0;
 }
 
-/* Plain sections: the hero and the features section sit directly on the Fog page
-   background, with no card. The gold lives on the feature cards instead. */
+/* Plain sections: the hero, the features section and the streak stats section sit
+   directly on the Fog page background, with no card. The gold lives on the cards inside. */
 .hero,
-.features-section {
+.features-section,
+.stats-section {
   background: none;
   border-radius: 0;
   padding-inline: 0;
 }
 
-.features-section {
+.features-section,
+.stats-section {
   padding-block: 0;
 }
 
@@ -319,6 +325,195 @@ section li > ul {
 .button[aria-disabled="true"] {
   background: var(--color-primary-disabled);
   cursor: not-allowed;
+}
+
+/* Visually hidden: still read by screen readers. Used for text that a symbol or
+   a position already says to sighted users (Done, Missed, "of 3 check-ins"). */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  border: 0;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Stat tiles: three Sunrise cards, each a label (dt) over a large value (dd).
+   One column on phones. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-m);
+}
+
+.stats > div {
+  padding: var(--space-m);
+  background: var(--color-secondary);
+  border-radius: var(--radius);
+}
+
+.stats dt,
+.stats dd {
+  margin: 0;
+}
+
+.stats dd {
+  margin-block-start: var(--space-s);
+  font-family: var(--font-heading);
+  font-size: 2.25rem;
+  font-weight: var(--font-weight-heading);
+  line-height: 1.2;
+}
+
+@media (max-width: 40rem) {
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Streak calendar: a grid of equal squares, seven to a row (one row per week). The
+   weekday labels and the days are two lists on the same seven-column grid so they line
+   up. minmax(0, 1fr) keeps every column the same width at any screen size, and more
+   weeks just add rows. Done is a Cedar fill and missed is an empty box, so the two
+   differ in lightness, not only hue; today adds an outline. */
+.calendar {
+  max-width: var(--calendar-max-width);
+  margin-inline: auto;
+}
+
+.calendar figcaption {
+  margin-block-end: var(--space-s);
+  font-weight: 700;
+}
+
+.calendar-weekdays,
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: var(--space-s);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.calendar-weekdays {
+  margin-block-end: var(--space-s);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.calendar-weekdays li + li,
+.calendar-days li + li {
+  margin-block-start: 0;
+}
+
+.day {
+  aspect-ratio: 1;
+  background: var(--color-bg);
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius);
+}
+
+/* Plain shading for now. Icons or another indicator are planned later: SF Symbols on
+   iOS, Material on Android. */
+.day.done {
+  background: var(--color-primary);
+}
+
+.day.today {
+  outline: 3px solid var(--color-text);
+  outline-offset: 2px;
+}
+
+/* Progress bar: a native <progress> with a label above it. Cedar fill on a Fog track
+   with a Bark border, and the value is also written out as text. */
+.habit-list {
+  padding: 0;
+  list-style: none;
+}
+
+.habit-list li + li {
+  margin-block-start: var(--space-m);
+}
+
+.habit-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-m);
+  margin-block-end: var(--space-s);
+}
+
+.habit-heading label {
+  font-weight: 700;
+}
+
+progress {
+  -webkit-appearance: none;
+  appearance: none;
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--space-m);
+  overflow: hidden;
+  background: var(--color-bg);
+  border: 1px solid var(--color-text);
+  border-radius: var(--radius);
+  color: var(--color-primary);
+}
+
+progress::-webkit-progress-bar {
+  background: var(--color-bg);
+}
+
+progress::-webkit-progress-value {
+  background: var(--color-primary);
+}
+
+progress::-moz-progress-bar {
+  background: var(--color-primary);
+}
+
+/* Weekly bar chart: seven columns. Each item reads label, bar, value in the source
+   (so a screen reader says "Mon, 3 of 3 check-ins"); column-reverse draws the label
+   at the bottom, the bar above it and the value on top of the bar. Bar height comes
+   from --value out of --max, set inline on the list and on each item. */
+.chart {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--space-s);
+  align-items: end;
+  padding: 0;
+  list-style: none;
+}
+
+.chart li {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.chart li + li {
+  margin-block-start: 0;
+}
+
+.chart-label {
+  font-size: 0.875rem;
+}
+
+.chart-bar {
+  width: 100%;
+  max-width: var(--space-xl);
+  height: calc(var(--chart-height) * var(--value) / var(--max));
+  background: var(--color-primary);
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+.chart-value {
+  font-weight: 700;
 }
 
 /* Data table */

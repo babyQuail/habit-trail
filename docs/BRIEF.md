@@ -8,12 +8,15 @@
 
 ## Site map
 
-> _Every page shares the same simple navigation (Home, Support, Privacy), so a visitor can reach any page from any other page. This also lets someone who lands directly on Support or Privacy, for example from a search result, move around the site without going back through Home first._
+> _Every page shares the same simple navigation (Home, Progress, Support, Privacy), so a visitor can reach any page from any other page. This also lets someone who lands directly on Support or Privacy, for example from a search result, move around the site without going back through Home first._
 
 ```mermaid
     flowchart TD
+        Home <--> Progress
         Home <--> Support
         Home <--> Privacy
+        Progress <--> Support
+        Progress <--> Privacy
         Support <--> Privacy
 ```
 
@@ -21,6 +24,7 @@
 | Page | Description | Success criteria |
 |----------|----------|----------|
 | **Home**    | Introduces HabitTrail, lists its main features, and gives a visitor a clear next step, such as a link to download the app.   | A first-time visitor can explain, in one sentence, what HabitTrail does.   |
+| **Progress**    | Shows, with clearly labelled example data, what streaks and progress look like in the app: streak counts, a calendar of recent days, progress per habit and check-ins by day. Ends with a link to download the app.   | A visitor can describe what streaks and progress look like in the app without downloading it first.   |
 | **Support**    | Answers the questions a new user is most likely to have, such as how to set a reminder.   | A visitor with a common question can find the answer without leaving the page.   |
 | **Privacy**    | States plainly what data HabitTrail collects, why it collects it, and how a user can ask for it to be deleted.   | A visitor can find what data is collected and how to request deletion without searching.   |
 
