@@ -146,7 +146,7 @@ An `<h3>` question followed by a `<p>` answer, or an `<ol>` for step-by-step ans
 ```
 Used twice in `index.html`. Each has a descriptive `aria-label`. `href="#"` is a placeholder.
 
-The `.button` class gives a Cedar fill, white bold text and `--radius` corners, with no border. It is at least `--tap-target` (44px) tall, with the text centered vertically. It stands out from the Sunrise card at 4.71:1. Hover turns the fill Bark. Use it for call-to-action links.
+The `.button` class gives a Cedar fill, white bold text and `--radius` corners, with no border. It is at least `--tap-target` (44px) tall, with the text centered vertically. It stands out from the Sunrise card at 4.71:1, and the fill alone (no shadow) is what marks it as the primary call to action. Hover turns the fill Bark, but only on devices that can hover (`@media (hover: hover)`), so a tap on a phone doesn't leave it dark. Pressing it (`:active`) turns the fill Bark and shrinks it slightly (`scale(0.98)`), which also gives feedback on touch. Use it for call-to-action links.
 
 ### Features grid
 ```html

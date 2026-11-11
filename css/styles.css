@@ -287,8 +287,17 @@ section li > ul {
   text-decoration: none;
 }
 
-.button:hover {
+/* Hover only on devices that can hover, so a tap on a phone doesn't leave the button dark */
+@media (hover: hover) {
+  .button:hover {
+    background: var(--color-text);
+  }
+}
+
+/* Pressed: Bark fill and a slight shrink, so a tap on a phone gets feedback too */
+.button:active {
   background: var(--color-text);
+  transform: scale(0.98);
 }
 
 /* Data table */
