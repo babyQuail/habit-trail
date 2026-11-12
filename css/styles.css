@@ -21,6 +21,17 @@
   --font-heading: "Lexend", sans-serif;
   --font-weight-heading: 600; /* Semibold: bold (700) looks cramped at small heading sizes */
 
+  /* Type scale, sized for Lexend (large x-height, wide letterforms) */
+  --font-size-s: 0.875rem;                          /* 14px: weekday and chart labels, narrow table */
+  --font-size-m: 1rem;                              /* 16px: body, button, nav links */
+  --font-size-l: 1.125rem;                          /* 18px: h3 */
+  --font-size-2xl: clamp(1.75rem, 3vw, 2.25rem);    /* 28-36px: h2, stat values */
+  --font-size-3xl: clamp(2.25rem, 5vw, 3.25rem);    /* 36-52px: h1 */
+  --line-height-body: 1.6;
+  --line-height-heading: 1.25;                      /* h2, h3, stat values */
+  --line-height-display: 1.15;                      /* h1, so multi-line titles stay together */
+  --letter-spacing-heading: -0.02em;                /* h1 and h2: Lexend is wide, so large sizes look loose */
+
   /* Spacing: each size doubles the last */
   --space-s: 0.5rem;  /* 8px */
   --space-m: 1rem;    /* 16px */
@@ -48,7 +59,8 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  line-height: 1.6;
+  font-size: var(--font-size-m);
+  line-height: var(--line-height-body);
 }
 
 a {
@@ -107,8 +119,9 @@ footer p {
 h1 {
   margin: 0 0 var(--space-m);
   color: var(--color-primary);
-  font-size: 2.25rem;
-  line-height: 1.2;
+  font-size: var(--font-size-3xl);
+  letter-spacing: var(--letter-spacing-heading);
+  line-height: var(--line-height-display);
 }
 
 main > p {
@@ -167,7 +180,7 @@ main > section > h3:not(:first-of-type) {
 
 section h2,
 section h3 {
-  line-height: 1.3;
+  line-height: var(--line-height-heading);
 }
 
 h1,
@@ -175,6 +188,15 @@ h2,
 h3 {
   font-family: var(--font-heading);
   font-weight: var(--font-weight-heading);
+}
+
+h2 {
+  font-size: var(--font-size-2xl);
+  letter-spacing: var(--letter-spacing-heading);
+}
+
+h3 {
+  font-size: var(--font-size-l);
 }
 
 section ul,
@@ -363,9 +385,9 @@ section li > ul {
 .stats dd {
   margin-block-start: var(--space-s);
   font-family: var(--font-heading);
-  font-size: 2.25rem;
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-heading);
-  line-height: 1.2;
+  line-height: var(--line-height-heading);
 }
 
 @media (max-width: 40rem) {
@@ -401,7 +423,7 @@ section li > ul {
 
 .calendar-weekdays {
   margin-block-end: var(--space-s);
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
   text-align: center;
 }
 
@@ -501,7 +523,7 @@ progress::-moz-progress-bar {
 }
 
 .chart-label {
-  font-size: 0.875rem;
+  font-size: var(--font-size-s);
 }
 
 .chart-bar {
@@ -548,7 +570,7 @@ code {
 @media (max-width: 40rem) {
   table {
     table-layout: fixed;
-    font-size: 0.875rem;
+    font-size: var(--font-size-s);
   }
 
   th,
