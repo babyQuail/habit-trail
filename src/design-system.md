@@ -4,7 +4,7 @@ This documents what exists in the code today: `index.html`, `progress.html`, `su
 
 ## Tokens and theme
 
-Design tokens are defined as CSS custom properties on `:root` in `css/styles.css`, and every color, spacing and radius value in the stylesheet uses them. Body text has a 1.6 line height.
+Design tokens are defined as CSS custom properties on `:root` in `css/styles.css`, and every color, spacing, radius and type size value in the stylesheet uses them. Body text has a 1.6 line height (`--line-height-body`).
 
 Theme: a cheerful Pacific Northwest day hike, with evergreen trees, a sunny trail and soft morning fog.
 
@@ -72,6 +72,27 @@ Rules that follow from this:
 | `--font-weight-heading` | `600` | Weight of `<h1>`, `<h2>`, `<h3>` |
 
 Lexend is a geometric, open typeface that comes from Google Fonts in weights 400, 600 and 700 only, so use only those. Regular (400) is body text. Semibold (600) is for headings: bold looks cramped at small heading sizes. Bold (700) is for emphasis inside text and controls: `<strong>`, the button label, table captions and the current page's nav link. Numerals were a deciding factor: 1 doesn't look like l or 7, 4 is closed, and 9 has an angled tail so it can't be mistaken for 8, which matters for streak counts and percentages. The fallback is the browser's default sans-serif. `<code>` keeps the browser's default monospace.
+
+#### Type scale
+
+Sized for Lexend, which has a large x-height and wide letterforms. Only sizes something uses are defined. The two largest are fluid: they follow the window width between a minimum and a maximum, and both ends are in `rem`, so they still respect the user's own text size setting.
+
+| Token | Value | Use |
+|---|---|---|
+| `--font-size-s` | `0.875rem` (14px) | Weekday labels, chart labels, the Privacy table at 40rem and below |
+| `--font-size-m` | `1rem` (16px) | Body text, button label, nav links |
+| `--font-size-l` | `1.125rem` (18px) | `<h3>` |
+| `--font-size-2xl` | `clamp(1.75rem, 3vw, 2.25rem)` (28 to 36px) | `<h2>`, stat values |
+| `--font-size-3xl` | `clamp(2.25rem, 5vw, 3.25rem)` (36 to 52px) | `<h1>` |
+
+| Token | Value | Use |
+|---|---|---|
+| `--line-height-body` | `1.6` | Body text and everything that inherits it |
+| `--line-height-heading` | `1.25` | `<h2>`, `<h3>`, stat values |
+| `--line-height-display` | `1.15` | `<h1>`, tighter so a title that wraps still reads as one block |
+| `--letter-spacing-heading` | `-0.02em` | `<h1>` and `<h2>`. Lexend is wide, so large sizes look loose without it. Not used on `<h3>` or below |
+
+`--font-size-s` (14px) is used for supporting labels only. Nav links and the button stay at `--font-size-m`, because they are the most-tapped text on the site. There is no `xs` or `xl` size yet: add one only when something uses it. Weights follow the Fonts table above: 400 for body, 600 for headings, 700 only at `--font-size-m` or smaller. Do not put 700 on a heading.
 
 ### Spacing
 
@@ -218,7 +239,7 @@ The "Features" section on `index.html` (`<section class="features-section">`, wh
   </dl>
 </section>
 ```
-Used on `progress.html`. Like the hero and features sections, `.stats-section` has no card and sits on Fog. A `<dl class="stats">` laid out as a CSS Grid of three equal columns with a `--space-m` gap, one column at 40rem wide and below. Each `<div>` is a compact Sunrise card (`--radius` corners, `--space-m` padding) with the label (`<dt>`, regular text) above the value (`<dd>`, `--font-heading` at 2.25rem and `--font-weight-heading`), `--space-s` apart. Label first in the source, so a screen reader says "Current streak, 12 days". Bark on Sunrise is 8.58:1.
+Used on `progress.html`. Like the hero and features sections, `.stats-section` has no card and sits on Fog. A `<dl class="stats">` laid out as a CSS Grid of three equal columns with a `--space-m` gap, one column at 40rem wide and below. Each `<div>` is a compact Sunrise card (`--radius` corners, `--space-m` padding) with the label (`<dt>`, regular text) above the value (`<dd>`, `--font-heading` at `--font-size-2xl`, `--line-height-heading` and `--font-weight-heading`), `--space-s` apart. Label first in the source, so a screen reader says "Current streak, 12 days". Bark on Sunrise is 8.58:1.
 
 ### Streak calendar
 ```html
